@@ -8,18 +8,18 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
   - 
+  - First Person Camera
   - 
+  - Player
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - Item
+  - To Inspect
+  - To Interact
   - 
   - 
   - 

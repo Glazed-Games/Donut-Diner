@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bd39a9886bfa9d41a82d5f4685cb308, type: 3}
+  m_Name: Book
+  m_EditorClassIdentifier: 
+  _name: Book
+  _uniqueId: 7a314b017961e914b834df0f15a87278
+  _prefab: {fileID: 5053317630913579096, guid: eb1e781e98f294749ac826bfa5933f9c, type: 3}
+  _icon: {fileID: 0}
+  _description: I've read it many times.
