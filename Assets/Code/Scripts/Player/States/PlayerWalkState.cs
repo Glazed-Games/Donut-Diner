@@ -103,7 +103,7 @@ namespace DonutDiner.PlayerModule.States
 
             movementVector = movementVector * StateData.Speed + _gravityPull * Vector3.down;
 
-            Controller.Move(movementVector * Time.fixedDeltaTime);
+            Controller.Move(movementVector * Time.smoothDeltaTime);
         }
 
         private Vector3 HandleInput()

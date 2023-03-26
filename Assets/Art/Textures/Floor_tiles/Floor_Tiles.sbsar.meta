@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: f887147d176c4c342b9cdf08d92eb1bc
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 5e96a7adbffd312498c1da8f8534c2e0, type: 2}
+  _assetPath: Assets/Art/Textures/Floor_tiles/Floor_Tiles.sbsar
