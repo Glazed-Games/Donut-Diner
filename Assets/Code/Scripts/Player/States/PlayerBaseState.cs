@@ -17,7 +17,7 @@ namespace DonutDiner.PlayerModule.States
 
         private PlayerController _context;
 
-        #endregion
+        #endregion Fields
 
         #region Public Methods
 
@@ -32,7 +32,7 @@ namespace DonutDiner.PlayerModule.States
             ClampViewAngle();
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Protected Methods
 
@@ -69,6 +69,6 @@ namespace DonutDiner.PlayerModule.States
             _context = GetComponentInParent<PlayerController>();
         }
 
-        #endregion
+        #endregion Protected Methods
     }
 }

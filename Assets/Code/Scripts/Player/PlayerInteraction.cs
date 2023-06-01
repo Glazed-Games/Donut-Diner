@@ -11,7 +11,7 @@ namespace DonutDiner.PlayerModule
 
         public event Action<bool, bool> OnExamination = delegate { };
 
-        #endregion
+        #endregion Delegates
 
         #region Fields
 
@@ -22,13 +22,13 @@ namespace DonutDiner.PlayerModule
         private Transform _examinationObject;
         private Transform _interactionObject;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
         public Transform Interaction => _interactionObject;
 
-        #endregion
+        #endregion Properties
 
         #region Public Methods
 
@@ -66,7 +66,7 @@ namespace DonutDiner.PlayerModule
             return _interactionObject.TryGetComponent(out item);
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -125,6 +125,6 @@ namespace DonutDiner.PlayerModule
             return Vector3.Distance(Player.Transform.position, hit.point) <= _distanceToInteract;
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

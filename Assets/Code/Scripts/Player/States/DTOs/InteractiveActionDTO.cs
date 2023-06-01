@@ -8,7 +8,7 @@ namespace DonutDiner.PlayerModule.States.DTOs
 
         public IInteractive Interactive { get; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -17,6 +17,6 @@ namespace DonutDiner.PlayerModule.States.DTOs
             Interactive = interactive;
         }
 
-        #endregion
+        #endregion Constructor
     }
 }

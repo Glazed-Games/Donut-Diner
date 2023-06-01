@@ -1,5 +1,7 @@
 ﻿using DonutDiner.PlayerModule.States;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace DonutDiner.UIModule
 {
@@ -9,11 +11,12 @@ namespace DonutDiner.UIModule
 
         [SerializeField] private GameObject _hudPanel;
         [SerializeField] private GameObject _inspectionPanel;
+        [SerializeField] private GameObject _inputTextObj;
         //[SerializeField] private GameObject _dialoguePanel;
 
         private static GameObject[] _panels;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -30,7 +33,7 @@ namespace DonutDiner.UIModule
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -44,16 +47,29 @@ namespace DonutDiner.UIModule
             CloseAllPanels();
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Public Methods
 
         public static void ToggleUIPanel(GameObject panel)
         {
+            //clear the focus so the event system can refocus the same element if open/closing the same item multiple times
+            EventSystem.current.SetSelectedGameObject(null);
             panel.SetActive(!panel.activeSelf);
 
             Cursor.lockState = panel.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = panel.activeSelf;
+        }
+
+        public static void EnableTextInput(GameObject TextInput)
+        {
+            if (TextInput == null) return;
+            TextInput.gameObject.SetActive(true);
+            if (TextInput.GetComponent<InputField>())
+            {
+                TextInput.GetComponent<InputField>().text = "";
+                EventSystem.current.SetSelectedGameObject(TextInput);
+            }
         }
 
         public static void CloseOpenPanels()
@@ -75,22 +91,24 @@ namespace DonutDiner.UIModule
             }
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
         private void SetReferences()
         {
             PlayerInspectState.Panel = _inspectionPanel;
+            PlayerInspectState.TextInput = _inputTextObj;
             //DialogueManager.Panel = _dialoguePanel;
 
             _panels = new GameObject[]
             {
                 PlayerInspectState.Panel,
+                PlayerInspectState.TextInput,
                 //DialogueManager.Panel
             };
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

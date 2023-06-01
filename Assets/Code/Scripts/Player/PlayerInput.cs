@@ -25,7 +25,7 @@ namespace DonutDiner.PlayerModule
         private PlayerController _context;
         private PlayerInteraction _interaction;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -35,7 +35,7 @@ namespace DonutDiner.PlayerModule
         public static Vector2 ZoomInputValues => _zoomInputValues;
         public static Vector2 RotationInputValues => _rotationInputValues;
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -63,7 +63,7 @@ namespace DonutDiner.PlayerModule
             UnsubscribeEvents();
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Public Methods
 
@@ -73,7 +73,7 @@ namespace DonutDiner.PlayerModule
             else if (_isUIEnabled) SetUIInput();
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -86,6 +86,10 @@ namespace DonutDiner.PlayerModule
 
         private void OnInteractionPressed(InputAction.CallbackContext callback)
         {
+            if (_isUIEnabled)
+            {
+                return;
+            }
             if (!_interaction.Interaction)
             {
                 _context.CurrentState.TrySwitchState(ActionType.None);
@@ -122,7 +126,6 @@ namespace DonutDiner.PlayerModule
             if (_isUIEnabled)
             {
                 _context.CurrentState.TrySwitchState(ActionType.None);
-
                 return;
             }
 
@@ -130,7 +133,7 @@ namespace DonutDiner.PlayerModule
             // TOGGLE GAME MENU
         }
 
-        #endregion
+        #endregion Input Actions
 
         private bool TryHandleInteractive(Transform interaction)
         {
@@ -158,6 +161,8 @@ namespace DonutDiner.PlayerModule
             {
                 case ItemToPickUp:
                     // HANDLE PICKING UP
+                    interaction.GetComponent<ItemToPickUp>().AddToInventory();
+                    PlayerInventory.Instance.AddItemToInventory(interaction.GetComponent<ItemToPickUp>().Root);
                     break;
 
                 case ItemToCarry:
@@ -166,6 +171,11 @@ namespace DonutDiner.PlayerModule
 
                 case ItemToInspect when interaction.TryGetComponent(out ItemToCarry _):
                     _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(interaction));
+                    break;
+
+                case ItemToInspect when interaction.TryGetComponent(out ItemToInputInto _):
+                    _context.CurrentState.TrySwitchState(ActionType.Inspect, new TransformActionDTO(interaction));
+                    ToggleInputReading(false, true);
                     break;
 
                 case ItemToInspect:
@@ -292,6 +302,6 @@ namespace DonutDiner.PlayerModule
             _interaction = GetComponent<PlayerInteraction>();
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

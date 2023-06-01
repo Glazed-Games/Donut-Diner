@@ -1,8 +1,10 @@
 using DonutDiner.FrameworkModule;
+using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.Data;
 using DonutDiner.PlayerModule.States.DTOs;
 using DonutDiner.UIModule;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DonutDiner.PlayerModule.States
 {
@@ -17,10 +19,11 @@ namespace DonutDiner.PlayerModule.States
         [SerializeField] private float _rotationSpeed = 5.0f;
 
         public static GameObject Panel;
+        public static GameObject TextInput;
 
         private InspectStateData _data;
 
-        #endregion
+        #endregion Fields
 
         #region Overriden Methods
 
@@ -32,10 +35,21 @@ namespace DonutDiner.PlayerModule.States
 
             ActivateUI();
             SetItemToInspect();
+
+            if (_data.ItemToInspect.gameObject.GetComponent<ItemToInputInto>())
+            {
+                UIPanelManager.EnableTextInput(TextInput);
+            }
         }
 
         public override PlayerActionDTO ExitState()
         {
+            if (_data.ItemToInspect.GetComponent<ItemToInputInto>())
+            {
+                if (TextInput.GetComponent<InputField>())
+                { _data.ItemToInspect.GetComponent<ItemToInputInto>().GetTextInput(TextInput.GetComponent<InputField>().text); }
+            }
+
             DeactivateUI();
 
             if (_data.ItemToInspect) _data.ItemToInspect.FinishInspection();
@@ -67,14 +81,21 @@ namespace DonutDiner.PlayerModule.States
             switch (action)
             {
                 case ActionType.None:
+
                     PopState();
                     return true;
 
                 case ActionType.Carry:
+
                     PopState();
                     return true;
 
                 case ActionType.Inspect:
+                    if (_data.ItemToInspect.GetComponent<ItemToInputInto>())
+                    {
+                        //If this has an input field associated with it ignore the interact/inspect key
+                        return false;
+                    }
                     PopState();
                     return true;
 
@@ -83,12 +104,16 @@ namespace DonutDiner.PlayerModule.States
             }
         }
 
-        #endregion
+        #endregion Overriden Methods
 
         #region Private Methods
 
         private void HandleRotation()
         {
+            if (_data.ItemToInspect.gameObject.GetComponent<ItemToInputInto>())
+            {
+                return;
+            }
             float inputX = PlayerInput.RotationInputValues.x * _rotationSpeed;
             float inputY = PlayerInput.RotationInputValues.y * _rotationSpeed;
 
@@ -139,6 +164,6 @@ namespace DonutDiner.PlayerModule.States
             _data.ItemToInspect.PrepareInspection();
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

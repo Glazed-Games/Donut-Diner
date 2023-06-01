@@ -9,17 +9,39 @@ namespace DonutDiner.InteractionModule.Interactive
 
         [SerializeField] private CharacterObject _character;
         [SerializeField] private TextAsset _dialogue;
+        [SerializeField] private bool _isLocked;
+
         [SerializeField] private bool _canInteract = true;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
         public bool CanInteract { get => _canInteract; set => _canInteract = value; }
 
-        #endregion
+        #endregion Properties
 
         #region Public Methods
+
+        public bool IsInteractable()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void IsInteractable(bool value)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool IsLocked()
+        {
+            return _isLocked;
+        }
+
+        public void IsLocked(bool value)
+        {
+            _isLocked = !value;
+        }
 
         public virtual void StartInteraction()
         {
@@ -28,6 +50,6 @@ namespace DonutDiner.InteractionModule.Interactive
             //DialogueManager.Instance.StartDialogue(new DialogueDTO(_dialogue.text, _character.Name));
         }
 
-        #endregion
+        #endregion Public Methods
     }
 }

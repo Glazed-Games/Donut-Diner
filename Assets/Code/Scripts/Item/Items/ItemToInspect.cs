@@ -14,13 +14,13 @@ namespace DonutDiner.ItemModule.Items
         private Collider _collider;
         private GameObject _prefab;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
         public ItemObject Root => _item;
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -29,7 +29,7 @@ namespace DonutDiner.ItemModule.Items
             SetReferences();
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Public Methods
 
@@ -65,7 +65,7 @@ namespace DonutDiner.ItemModule.Items
             _prefab = null;
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -75,6 +75,6 @@ namespace DonutDiner.ItemModule.Items
             _collider = GetComponent<Collider>();
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

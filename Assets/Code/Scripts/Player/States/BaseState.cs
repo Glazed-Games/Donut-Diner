@@ -14,7 +14,7 @@ namespace DonutDiner.PlayerModule.States
 
         protected PlayerStateMachine StateMachine;
 
-        #endregion
+        #endregion Fields
 
         #region Unity Methods
 
@@ -23,13 +23,13 @@ namespace DonutDiner.PlayerModule.States
             SetReferences();
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Properties
 
         protected PlayerStateData StateData { get; set; }
 
-        #endregion
+        #endregion Properties
 
         #region Abstract Methods
 
@@ -41,7 +41,7 @@ namespace DonutDiner.PlayerModule.States
 
         public abstract void CheckSwitchState();
 
-        #endregion
+        #endregion Abstract Methods
 
         #region Public Methods
 
@@ -68,7 +68,7 @@ namespace DonutDiner.PlayerModule.States
             PushState(newState);
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Protected Methods
 
@@ -145,6 +145,6 @@ namespace DonutDiner.PlayerModule.States
             StateMachine = GetComponent<PlayerStateMachine>();
         }
 
-        #endregion
+        #endregion Protected Methods
     }
 }
