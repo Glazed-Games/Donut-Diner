@@ -12,6 +12,7 @@ namespace DonutDiner.UIModule
         [SerializeField] private GameObject _hudPanel;
         [SerializeField] private GameObject _inspectionPanel;
         [SerializeField] private GameObject _inputTextObj;
+        [SerializeField] private GameObject _donutBoxPanel;
         //[SerializeField] private GameObject _dialoguePanel;
 
         private static GameObject[] _panels;
@@ -61,14 +62,25 @@ namespace DonutDiner.UIModule
             Cursor.visible = panel.activeSelf;
         }
 
-        public static void EnableTextInput(GameObject TextInput)
+        public static void EnableTextInput(GameObject textInput)
         {
-            if (TextInput == null) return;
-            TextInput.gameObject.SetActive(true);
-            if (TextInput.GetComponent<InputField>())
+            if (textInput == null) return;
+            textInput.gameObject.SetActive(true);
+            if (textInput.GetComponent<InputField>())
             {
-                TextInput.GetComponent<InputField>().text = "";
-                EventSystem.current.SetSelectedGameObject(TextInput);
+                textInput.GetComponent<InputField>().text = "";
+                EventSystem.current.SetSelectedGameObject(textInput);
+            }
+        }
+
+        public static void EnableDonutBox(GameObject donutPanel)
+        {
+            if (donutPanel == null) return;
+            donutPanel.gameObject.SetActive(true);
+            if (donutPanel.GetComponent<InputField>())
+            {
+                donutPanel.GetComponent<InputField>().text = "";
+                EventSystem.current.SetSelectedGameObject(donutPanel);
             }
         }
 
@@ -99,12 +111,14 @@ namespace DonutDiner.UIModule
         {
             PlayerInspectState.Panel = _inspectionPanel;
             PlayerInspectState.TextInput = _inputTextObj;
+            PlayerInspectState.DonutBoxPanel = _donutBoxPanel;
             //DialogueManager.Panel = _dialoguePanel;
 
             _panels = new GameObject[]
             {
                 PlayerInspectState.Panel,
                 PlayerInspectState.TextInput,
+                PlayerInspectState.DonutBoxPanel,
                 //DialogueManager.Panel
             };
         }

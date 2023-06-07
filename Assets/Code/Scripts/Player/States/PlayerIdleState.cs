@@ -51,8 +51,8 @@ namespace DonutDiner.PlayerModule.States
                     SwapState(StateMachine.Crouch());
                     return true;
 
-                case ActionType.Interact when dto is ItemSpotActionDTO actionDto:
-                    return TryPlaceItem(actionDto.ItemSpot);
+                // case ActionType.Interact when dto is ItemSpotActionDTO actionDto:
+                //     return TryPlaceItem(actionDto.ItemSpot);
 
                 case ActionType.Carry:
                     StateData.SetData(dto);

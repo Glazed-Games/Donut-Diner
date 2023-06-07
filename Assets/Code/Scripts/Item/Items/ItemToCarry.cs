@@ -3,6 +3,7 @@ using DonutDiner.PlayerModule;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DonutDiner.ItemModule.Items
 {
@@ -13,26 +14,30 @@ namespace DonutDiner.ItemModule.Items
 
         public event Action OnCarrying = delegate { };
 
-        #endregion
+        #endregion Delegates
 
         #region Fields
 
         [SerializeField] private ItemObject _item;
         [SerializeField] private float _isKinematicTimeout = 10.0f;
 
+        public UnityEvent OnPickUp;
+        public UnityEvent OnDrop;
+
+
         private Coroutine _coroutine;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
         public ItemObject Root => _item;
 
-        #endregion
+        #endregion Properties
 
         #region Public Methods
 
-        public void Carry()
+        public virtual void Carry()
         {
             if (_coroutine != null) StopCoroutine(_coroutine);
 
@@ -40,14 +45,15 @@ namespace DonutDiner.ItemModule.Items
             transform.GetComponent<Collider>().enabled = false;
             transform.parent = Player.Hand;
             transform.localPosition = Vector3.zero;
-            transform.eulerAngles = Vector3.zero;
+            transform.localEulerAngles = Vector3.zero;
 
             gameObject.layer = LayerMask.NameToLayer(Layer.FirstPersonCamera);
 
             OnCarrying();
+            if (OnPickUp != null) { OnPickUp.Invoke(); }
         }
 
-        public void Drop()
+        public virtual void Drop()
         {
             transform.GetComponent<Rigidbody>().isKinematic = false;
             transform.GetComponent<Collider>().enabled = true;
@@ -55,12 +61,14 @@ namespace DonutDiner.ItemModule.Items
 
             gameObject.layer = LayerMask.NameToLayer(Layer.Item);
 
+            if (OnDrop != null) { OnDrop.Invoke(); }
+
             if (_coroutine != null) StopCoroutine(_coroutine);
 
             _coroutine = StartCoroutine(SetIsKinematic());
         }
 
-        public void Place(Vector3 position, bool isItemLocked = false)
+        public virtual void Place(Vector3 position, bool isItemLocked = false)
         {
             transform.GetComponent<Rigidbody>().isKinematic = true;
             transform.GetComponent<Collider>().enabled = !isItemLocked;
@@ -68,9 +76,11 @@ namespace DonutDiner.ItemModule.Items
             transform.eulerAngles = Vector3.zero;
             transform.position = position;
             transform.parent = null;
+
+            if (OnDrop != null) { OnDrop.Invoke(); }
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -93,6 +103,6 @@ namespace DonutDiner.ItemModule.Items
             yield return null;
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

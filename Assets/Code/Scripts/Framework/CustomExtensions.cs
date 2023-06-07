@@ -81,6 +81,6 @@ namespace DonutDiner.FrameworkModule
             transform.localRotation = Quaternion.RotateTowards(currentRotation, defaultRotation, rate * Time.deltaTime);
         }
 
-        #endregion
+        #endregion Public Methods
     }
 }

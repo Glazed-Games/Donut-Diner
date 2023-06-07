@@ -4,6 +4,8 @@ namespace DonutDiner.FrameworkModule
     {
         public void SetPuzzle(Puzzle newPuzzle);
 
+        public void CheckSolution();
+
         public bool IsSolved();
     }
 }

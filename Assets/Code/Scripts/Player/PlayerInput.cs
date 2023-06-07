@@ -1,6 +1,7 @@
 using DonutDiner.FrameworkModule;
 using DonutDiner.InteractionModule.Environment;
 using DonutDiner.InteractionModule.Interactive;
+using DonutDiner.ItemModule;
 using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.DTOs;
 using UnityEngine;
@@ -86,17 +87,16 @@ namespace DonutDiner.PlayerModule
 
         private void OnInteractionPressed(InputAction.CallbackContext callback)
         {
-            if (_isUIEnabled)
-            {
-                return;
-            }
             if (!_interaction.Interaction)
             {
                 _context.CurrentState.TrySwitchState(ActionType.None);
 
                 return;
             }
-
+            if (_isUIEnabled)
+            {
+                //  return;
+            }
             Transform interaction = _interaction.Interaction;
 
             if (TryHandleInteractive(interaction)) return;
@@ -133,6 +133,18 @@ namespace DonutDiner.PlayerModule
             // TOGGLE GAME MENU
         }
 
+        public void ButtonCloseMenu()
+        {
+            if (_isUIEnabled)
+            {
+                _context.CurrentState.TrySwitchState(ActionType.None);
+                return;
+            }
+
+            //GameStateManager.Instance.ChangeState(GameState.Paused);
+            // TOGGLE GAME MENU
+        }
+
         #endregion Input Actions
 
         private bool TryHandleInteractive(Transform interaction)
@@ -153,6 +165,16 @@ namespace DonutDiner.PlayerModule
             return true;
         }
 
+        private void TryHandleUseItem(ItemObject item)
+        {
+            Debug.Log("player input TRY HANDLE USE ITEM");
+
+            if (item == null)
+            { return; }
+
+            _context.CurrentState.TryHandleUseItem(item);
+        }
+
         private bool TryHandleItem(Transform interaction)
         {
             if (!_interaction.TryGetItem(out IItem item)) return false;
@@ -169,13 +191,14 @@ namespace DonutDiner.PlayerModule
                     _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(interaction));
                     break;
 
-                case ItemToInspect when interaction.TryGetComponent(out ItemToCarry _):
-                    _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(interaction));
-                    break;
+                case ItemToInputInto when interaction.TryGetComponent(out ItemToInputInto _):
 
-                case ItemToInspect when interaction.TryGetComponent(out ItemToInputInto _):
                     _context.CurrentState.TrySwitchState(ActionType.Inspect, new TransformActionDTO(interaction));
                     ToggleInputReading(false, true);
+                    break;
+
+                case ItemToInspect when interaction.TryGetComponent(out ItemToCarry _):
+                    _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(interaction));
                     break;
 
                 case ItemToInspect:
@@ -280,6 +303,8 @@ namespace DonutDiner.PlayerModule
             _actions.Game.Pause.performed += OnPausePressed;
             _actions.Game.Escape.performed += OnEscapePressed;
 
+            PlayerInventory.tryUseItem += TryHandleUseItem;
+
             GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
         }
 
@@ -291,6 +316,8 @@ namespace DonutDiner.PlayerModule
             _actions.UI.Inventory.performed -= OnInventoryPressed;
             _actions.Game.Pause.performed -= OnPausePressed;
             _actions.Game.Escape.performed -= OnEscapePressed;
+
+            PlayerInventory.tryUseItem -= TryHandleUseItem;
 
             if (GameStateManager.Instance != null) GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
         }

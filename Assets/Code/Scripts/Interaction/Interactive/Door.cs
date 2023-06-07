@@ -76,7 +76,7 @@ namespace DonutDiner.InteractionModule.Interactive
 
         public bool IsInteractable()
         {
-            return _isLocked;
+            return !_isLocked;
         }
 
         public void IsInteractable(bool value)

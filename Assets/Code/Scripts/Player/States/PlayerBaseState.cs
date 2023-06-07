@@ -1,4 +1,5 @@
 using DonutDiner.FrameworkModule;
+using DonutDiner.ItemModule;
 using UnityEngine;
 
 namespace DonutDiner.PlayerModule.States
@@ -30,6 +31,12 @@ namespace DonutDiner.PlayerModule.States
             Player.Transform.Rotate(Vector3.up * _mouseX);
 
             ClampViewAngle();
+        }
+
+        public virtual void TryHandleUseItem(ItemObject item)
+        {
+            if (item == null)
+            { return; }
         }
 
         #endregion Public Methods

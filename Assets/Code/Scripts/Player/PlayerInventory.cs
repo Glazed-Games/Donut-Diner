@@ -1,23 +1,36 @@
+using DonutDiner.FrameworkModule;
 using DonutDiner.ItemModule;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace DonutDiner.FrameworkModule
+namespace DonutDiner.PlayerModule
 {
     public class PlayerInventory : ComponentSingleton<PlayerInventory>
     {
         // Using a list because the inventory will change size
         [SerializeField] private List<ItemObject> inventory;
 
+        [SerializeField] private List<ItemObject> donuts;
+        [SerializeField] private UnityEvent _useItemEvent;
+
+        public delegate void TryUseItem(ItemObject item);
+
+        public static TryUseItem tryUseItem;
+
         // Start is called before the first frame update
         private void Start()
         {
+            tryUseItem = TryItem;
         }
 
         // Update is called once per frame
         private void Update()
         {
         }
+
+        public void TryItem(ItemObject item)
+        { Debug.Log("TRY HANDLE USE ITEM"); }
 
         #region Public Methods
 
@@ -86,6 +99,14 @@ namespace DonutDiner.FrameworkModule
             { inventory = new List<ItemObject>(); }
 
             return inventory;
+        }
+
+        public List<ItemObject> GetDonuts()
+        {
+            if (donuts == null)
+            { donuts = new List<ItemObject>(); }
+
+            return donuts;
         }
 
         #endregion Public Methods

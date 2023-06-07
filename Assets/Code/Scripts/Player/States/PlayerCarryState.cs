@@ -55,7 +55,7 @@ namespace DonutDiner.PlayerModule.States
             }
         }
 
-        #endregion
+        #endregion Overriden Methods
 
         #region Private Methods
 
@@ -84,6 +84,6 @@ namespace DonutDiner.PlayerModule.States
             return true;
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

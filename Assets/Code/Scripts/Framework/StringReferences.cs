@@ -13,7 +13,8 @@
         public const string ToInspect = "To Inspect";
         public const string ToInteract = "To Interact";
         public const string Obstacle = "Obstacle";
+        public const string Blacklight = "Blacklight";
 
-        #endregion
+        #endregion Constants
     }
 }

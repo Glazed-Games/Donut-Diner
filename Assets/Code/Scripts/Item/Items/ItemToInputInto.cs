@@ -94,6 +94,11 @@ namespace DonutDiner.ItemModule.Items
             return lastCodeEntered == _unlockCode;
         }
 
+        public void CheckSolution()
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion Private Methods
     }
 }

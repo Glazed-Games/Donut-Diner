@@ -1,4 +1,8 @@
+using DonutDiner.FrameworkModule;
 using DonutDiner.FrameworkModule.Data;
+using DonutDiner.InteractionModule.Environment;
+using DonutDiner.ItemModule;
+using DonutDiner.PlayerModule;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +14,8 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
     {
         #region Fields
 
-        
+        [SerializeField] private KeyItemSpot keySpot;
+        [SerializeField] private ItemObject itemNeeded;
         [SerializeField] private List<InteractiveDevice> controlledDevices;
         [SerializeField] private bool _isOpen;
 
@@ -24,14 +29,14 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
 
         [Header("Debug: Editor window shows rays to connected devices")]
         [SerializeField] private bool debugShowControlledDevices;
+
+        [SerializeField] private float debugRayLifeTime;
         [SerializeField] private Color debugRayColor = Color.green;
 
         private Coroutine _closingDoor;
         private Animator _animator;
 
         #endregion Fields
-
-
 
         #region Unity Methods
 
@@ -51,8 +56,12 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
             {
                 foreach (InteractiveDevice el in ControlledDevices())
                 {
-                    Debug.DrawRay(transform.position, el.transform.position - transform.position, debugRayColor);
+                    if (el != null)
+                    {
+                        Debug.DrawRay(transform.position, el.transform.position - transform.position, debugRayColor, debugRayLifeTime);
+                    }
                 }
+                debugShowControlledDevices = false;
             }
         }
 
@@ -64,15 +73,28 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
         {
             if (!CanInteract) return;
             if (IsLocked()) return;
+            if (!UnlockConditionMet()) return;
 
             ChangeState(!_isOpen);
 
             foreach (InteractiveDevice el in ControlledDevices())
             {
-                el.StartInteraction();
+                if (el != null)
+                { el.StartInteraction(); }
             }
 
             if (HasTimerToClose()) PrepareCoroutine();
+        }
+
+        public bool UnlockConditionMet()
+        {
+            //check a central keyItemSpot for the required item
+            if (keySpot != null && !keySpot.HasKey()) return false;
+            //check the player's inventory for the required item
+            if (itemNeeded != null && !PlayerInventory.Instance.CheckForItem(itemNeeded)) return false;
+
+            //if a key spot or a needed item isnt set, the device defaults to usable
+            return true;
         }
 
         public List<InteractiveDevice> ControlledDevices()

@@ -1,10 +1,9 @@
-using System.Collections;
+using DonutDiner.ItemModule;
+using DonutDiner.PlayerModule;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using DonutDiner.FrameworkModule;
-using DonutDiner.ItemModule;
 
 namespace DonutDiner.UIModule.Menu
 {
@@ -26,7 +25,6 @@ namespace DonutDiner.UIModule.Menu
         [SerializeField] private Image image_selectedItem;
         [SerializeField] private TMP_Text text_selectedItem;
         [SerializeField] private TMP_Text text_selectedItem_Description;
-        
 
         private int page; //the portion of the inventory currently displayed
         [Min(1)] private int ROWS = 3;
@@ -40,34 +38,41 @@ namespace DonutDiner.UIModule.Menu
             CreateButtons();
         }
 
+        public void OnEnable()
+        {
+            ChangePage(0);
+        }
+
         public void CreateButtons()
         {
             if (prefab_button == null) { return; }
 
             int rowCount = 0;
             int columnCount = 0;
-           
-            float width = panel_page.rect.width / (COLUMNS );
-            float height = panel_page.rect.height / (ROWS );
+
+            float width = panel_page.rect.width / (COLUMNS);
+            float height = panel_page.rect.height / (ROWS);
 
             buttonList = new List<UIInventoryButton>();
 
             while (rowCount < ROWS)
             {
+                columnCount = 0;
                 while (columnCount < COLUMNS)
                 {
-                    UIInventoryButton clone = Instantiate(prefab_button, parent_buttons.position, parent_buttons.rotation) ;
+                    UIInventoryButton clone = Instantiate(prefab_button, parent_buttons.position, parent_buttons.rotation);
                     clone.transform.parent = parent_buttons;
-                    clone.transform.localPosition = new Vector2((width * (columnCount - 1)) ,(height * (rowCount - 1)));
-                        
+                    clone.transform.localPosition = new Vector2((width * (columnCount - 1)), (height * (rowCount - 1)));
+
                     buttonList.Add(clone.GetComponent<UIInventoryButton>());
                     clone.SetUIInventory(this, buttonList.Count);
-                     
+
                     columnCount++;
                 }
-                columnCount = 0;
+
                 rowCount++;
             }
+            ChangePage(0);
         }
 
         public void ItemButtonOnClick(int buttonNumber)
@@ -81,19 +86,28 @@ namespace DonutDiner.UIModule.Menu
                 if (image_selectedItem) { image_selectedItem.sprite = item.Icon; }
                 if (text_selectedItem) { text_selectedItem.text = item.Name; }
                 if (text_selectedItem_Description) { text_selectedItem_Description.text = item.Description; }
-
             }
             else
             {
                 //NOTE:for debug testing without an item list
                 if (image_selectedItem) { image_selectedItem.sprite = ButtonList()[buttonNumber - 1].GetImage().sprite; }
-                if (text_selectedItem) 
-                { 
+                if (text_selectedItem)
+                {
                     text_selectedItem.text = "Donut #" + itemNumber.ToString();
                 }
                 if (text_selectedItem_Description) { text_selectedItem_Description.text = "One of your -" + PlayerInventory.Instance.GetInventory().Count + "- donuts"; }
             }
+        }
 
+        public void DonutButtonOnClick(ItemObject item)
+        {
+            Debug.Log("DonutButtonOnClick TRY HANDLE USE ITEM");
+            if (item == null) { return; }
+
+            if (PlayerInventory.Instance.GetInventory().Contains(item))
+            {
+                PlayerInventory.tryUseItem(item);
+            }
         }
 
         public void ChangePage(int direction)
@@ -120,32 +134,31 @@ namespace DonutDiner.UIModule.Menu
                 {
                     page = TEST_PAGECOUNT;
                 }
-                
+
                 page -= 1;
             }
-           // UpdateItemButtons(inventory.GetRange(page * (ROWS * COLUMNS), (ROWS * COLUMNS)));
-            UpdateItemButtons();
+            UpdateItemButtons(page * (ROWS * COLUMNS));
+            //UpdateItemButtons();
         }
 
-        public void UpdateItemButtons(List<ItemObject> items)
+        public void UpdateItemButtons(int startFrom)
         {
-
             foreach (UIInventoryButton btn in ButtonList())
             {
-                if (btn.NumberInList() >= 0 && btn.NumberInList() < items.Count)
+                if (btn.NumberInList() >= 0 && btn.NumberInList() + startFrom < PlayerInventory.Instance.GetInventory().Count)
                 {
-                    btn.SetButton(items[btn.NumberInList()]);
-
+                    btn.gameObject.SetActive(true);
+                    btn.SetButton(PlayerInventory.Instance.GetInventory()[btn.NumberInList() + startFrom]);
                 }
+                else { btn.gameObject.SetActive(false); }
             }
         }
 
         public void UpdateItemButtons()
         {
-
             foreach (UIInventoryButton btn in ButtonList())
             {
-                 btn.SetButton("Donut: #" + ((page * pageCount) + btn.NumberInList())); 
+                btn.SetButton("Donut: #" + ((page * pageCount) + btn.NumberInList()));
             }
         }
 
@@ -153,13 +166,10 @@ namespace DonutDiner.UIModule.Menu
         {
             if (buttonList == null || buttonList.Count == 0)
             {
-                CreateButtons();
+                // CreateButtons();
             }
 
             return buttonList;
-                
         }
-
-
     }
 }

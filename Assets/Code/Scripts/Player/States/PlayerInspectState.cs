@@ -1,4 +1,5 @@
 using DonutDiner.FrameworkModule;
+using DonutDiner.ItemModule;
 using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.Data;
 using DonutDiner.PlayerModule.States.DTOs;
@@ -20,6 +21,7 @@ namespace DonutDiner.PlayerModule.States
 
         public static GameObject Panel;
         public static GameObject TextInput;
+        public static GameObject DonutBoxPanel;
 
         private InspectStateData _data;
 
@@ -36,6 +38,10 @@ namespace DonutDiner.PlayerModule.States
             ActivateUI();
             SetItemToInspect();
 
+            if (_data.ItemToInspect.gameObject.GetComponent<ItemToInputInto>())
+            {
+                UIPanelManager.EnableTextInput(TextInput);
+            }
             if (_data.ItemToInspect.gameObject.GetComponent<ItemToInputInto>())
             {
                 UIPanelManager.EnableTextInput(TextInput);
@@ -91,6 +97,7 @@ namespace DonutDiner.PlayerModule.States
                     return true;
 
                 case ActionType.Inspect:
+
                     if (_data.ItemToInspect.GetComponent<ItemToInputInto>())
                     {
                         //If this has an input field associated with it ignore the interact/inspect key
@@ -102,6 +109,14 @@ namespace DonutDiner.PlayerModule.States
                 default:
                     return false;
             }
+        }
+
+        public override void TryHandleUseItem(ItemObject item)
+        {
+            if (item == null)
+            { return; }
+
+            //_data.ItemToInspect
         }
 
         #endregion Overriden Methods
