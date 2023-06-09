@@ -33,7 +33,7 @@ namespace DonutDiner.PlayerModule.States
             ClampViewAngle();
         }
 
-        public virtual void TryHandleUseItem(ItemObject item)
+        public virtual void TryHandleUseItem(Transform item)
         {
             if (item == null)
             { return; }

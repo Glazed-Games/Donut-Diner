@@ -4,6 +4,7 @@ using DonutDiner.InteractionModule.Interactive;
 using DonutDiner.ItemModule;
 using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.DTOs;
+using DonutDiner.UIModule;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -125,10 +126,11 @@ namespace DonutDiner.PlayerModule
         {
             if (_isUIEnabled)
             {
+                
                 _context.CurrentState.TrySwitchState(ActionType.None);
                 return;
             }
-
+            UIPanelManager.CloseMenu();
             GameStateManager.Instance.ChangeState(GameState.Paused);
             // TOGGLE GAME MENU
         }
@@ -167,18 +169,26 @@ namespace DonutDiner.PlayerModule
 
         private void TryHandleUseItem(ItemObject item)
         {
-            Debug.Log("player input TRY HANDLE USE ITEM");
-
+            
             if (item == null)
             { return; }
 
-            _context.CurrentState.TryHandleUseItem(item);
+            GameObject _prefab = null;
+            ItemPooler.Instance.ItemsToExamine.TryGetValue(item.Id, out _prefab);
+            if (_prefab)
+            {
+                _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(_prefab.transform));
+
+            }
+            
+            // _context.CurrentState.TryHandleUseItem(item);
         }
 
         private bool TryHandleItem(Transform interaction)
         {
-            if (!_interaction.TryGetItem(out IItem item)) return false;
 
+            if (!_interaction.TryGetItem(out IItem item)) return false;
+   
             switch (item)
             {
                 case ItemToPickUp:
@@ -232,6 +242,9 @@ namespace DonutDiner.PlayerModule
 
         private void OnGameStateChanged(GameState gameState)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            
             switch (gameState)
             {
                 case GameState.Gameplay:
@@ -242,6 +255,9 @@ namespace DonutDiner.PlayerModule
                 case GameState.Paused:
                     DisableInputActions();
                     ToggleInputReading(false, false);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    UIPanelManager.OpenMenu();
                     break;
 
                 case GameState.UI:

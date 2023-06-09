@@ -11,7 +11,7 @@ namespace DonutDiner.UIModule.Menu
         [SerializeField] private UIInventory uIInventory;
         [SerializeField] private Image itemImage;
         [SerializeField] private TMP_Text itemName;
-        [SerializeReference] private ItemObject itemReference;
+        [SerializeField] private ItemObject itemReference;
 
         public void OnClick()
         {
@@ -19,7 +19,7 @@ namespace DonutDiner.UIModule.Menu
             {
                 if (itemReference != null)
                 {
-                    uIInventory.ItemButtonOnClick(numberInList);
+                    uIInventory.DonutButtonOnClick(itemReference);
                     return;
                 }
                 uIInventory.ItemButtonOnClick(numberInList);

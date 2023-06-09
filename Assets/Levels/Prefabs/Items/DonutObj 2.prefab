@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2212489956532688491}
   - component: {fileID: 2212489956532688490}
   m_Layer: 12
-  m_Name: DonutObj
+  m_Name: DonutObj 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c7c1c3225c73e48b6e3b3011214896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _item: {fileID: 11400000, guid: 24a7b01e63e83b94898bf27f23effd33, type: 2}
+  _item: {fileID: 11400000, guid: cb1bc7d207ddb934892358094742288a, type: 2}
   _isKinematicTimeout: 10
   OnPickUp:
     m_PersistentCalls:
@@ -145,7 +145,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04b6a35ed2412c34eb137c0eb3a086f8, type: 2}
+  - {fileID: 2100000, guid: 8382a3abefe67824aaf39e544c4245f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

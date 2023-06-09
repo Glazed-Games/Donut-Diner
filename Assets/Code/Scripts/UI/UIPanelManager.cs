@@ -13,6 +13,7 @@ namespace DonutDiner.UIModule
         [SerializeField] private GameObject _inspectionPanel;
         [SerializeField] private GameObject _inputTextObj;
         [SerializeField] private GameObject _donutBoxPanel;
+        [SerializeField] private GameObject _journalPanel;
         //[SerializeField] private GameObject _dialoguePanel;
 
         private static GameObject[] _panels;
@@ -103,6 +104,27 @@ namespace DonutDiner.UIModule
             }
         }
 
+        public static void OpenMenu() 
+        {
+            if (PlayerInspectState.JournalPanel)
+            {
+                PlayerInspectState.DonutBoxPanel.SetActive(true);
+                PlayerInspectState.JournalPanel.SetActive(true);
+                PlayerInspectState.Panel.SetActive(true);
+            }
+
+        }
+        public static void CloseMenu()
+        {
+            if (PlayerInspectState.JournalPanel)
+            {
+                PlayerInspectState.DonutBoxPanel.SetActive(false);
+                PlayerInspectState.JournalPanel.SetActive(false);
+                PlayerInspectState.Panel.SetActive(false);
+            }
+
+        }
+
         #endregion Public Methods
 
         #region Private Methods
@@ -112,6 +134,9 @@ namespace DonutDiner.UIModule
             PlayerInspectState.Panel = _inspectionPanel;
             PlayerInspectState.TextInput = _inputTextObj;
             PlayerInspectState.DonutBoxPanel = _donutBoxPanel;
+            PlayerInspectState.JournalPanel = _journalPanel;
+
+            
             //DialogueManager.Panel = _dialoguePanel;
 
             _panels = new GameObject[]
@@ -119,6 +144,7 @@ namespace DonutDiner.UIModule
                 PlayerInspectState.Panel,
                 PlayerInspectState.TextInput,
                 PlayerInspectState.DonutBoxPanel,
+                PlayerInspectState.JournalPanel
                 //DialogueManager.Panel
             };
         }

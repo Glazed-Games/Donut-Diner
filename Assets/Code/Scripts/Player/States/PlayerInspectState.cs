@@ -22,7 +22,8 @@ namespace DonutDiner.PlayerModule.States
         public static GameObject Panel;
         public static GameObject TextInput;
         public static GameObject DonutBoxPanel;
-
+        public static GameObject JournalPanel;
+        
         private InspectStateData _data;
 
         #endregion Fields
@@ -111,7 +112,7 @@ namespace DonutDiner.PlayerModule.States
             }
         }
 
-        public override void TryHandleUseItem(ItemObject item)
+        public override void TryHandleUseItem(Transform item)
         {
             if (item == null)
             { return; }

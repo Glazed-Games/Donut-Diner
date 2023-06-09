@@ -41,6 +41,7 @@ namespace DonutDiner.ItemModule.Items
         {
             if (_coroutine != null) StopCoroutine(_coroutine);
 
+            gameObject.SetActive(true);
             transform.GetComponent<Rigidbody>().isKinematic = true;
             transform.GetComponent<Collider>().enabled = false;
             transform.parent = Player.Hand;

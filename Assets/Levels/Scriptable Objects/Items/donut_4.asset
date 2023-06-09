@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bd39a9886bfa9d41a82d5f4685cb308, type: 3}
+  m_Name: donut_4
+  m_EditorClassIdentifier: 
+  _name: donut_4
+  _uniqueId: 1d3663578ab4a8649a64b36296668b2d
+  _prefab: {fileID: 7779441057955447668, guid: 3e4c42c410f726541b119f901d83075f, type: 3}
+  _icon: {fileID: 21300000, guid: d5a4d5167dae93d4eba12d305e128921, type: 3}
+  _description: I don't know what this is used for.
