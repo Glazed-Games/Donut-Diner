@@ -13,7 +13,8 @@ namespace DonutDiner.PlayerModule
         private PlayerFallState _fallState;
         private PlayerCarryState _carryState;
         private PlayerInspectState _inspectState;
-        //private PlayerDialogueState _dialogueState;
+        private PlayerDialogueState _dialogueState;
+        private PlayerMenuState _menuState;
 
         #endregion
 
@@ -27,7 +28,9 @@ namespace DonutDiner.PlayerModule
             TryGetComponent(out _fallState);
             TryGetComponent(out _carryState);
             TryGetComponent(out _inspectState);
-            //TryGetComponent(out _dialogueState);
+            TryGetComponent(out _dialogueState);
+            TryGetComponent(out _dialogueState);
+            TryGetComponent(out _menuState);
         }
 
         #endregion
@@ -54,6 +57,11 @@ namespace DonutDiner.PlayerModule
             return _fallState;
         }
 
+        public PlayerBaseState Dialogue()
+        {
+            return _dialogueState;
+        }
+
         public BaseState Carry()
         {
             return _carryState;
@@ -62,6 +70,11 @@ namespace DonutDiner.PlayerModule
         public PlayerBaseState Inspect()
         {
             return _inspectState;
+        }
+
+        public PlayerBaseState Menu()
+        {
+            return _menuState;
         }
 
         //public PlayerBaseState Dialogue()

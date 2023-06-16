@@ -19,6 +19,7 @@ namespace DonutDiner.PlayerModule
 
         public bool IsPaused { get; private set; }
         public PlayerBaseState CurrentState { get; private set; }
+        public PlayerBaseState debugShowState;
 
         #endregion Properties
 
@@ -56,6 +57,7 @@ namespace DonutDiner.PlayerModule
 
         private void LateUpdate()
         {
+            debugShowState = CurrentState;
             if (IsPaused) return;
 
             CurrentState.UpdateCamera();

@@ -24,7 +24,6 @@ namespace DonutDiner.ItemModule.Items
         public UnityEvent OnPickUp;
         public UnityEvent OnDrop;
 
-
         private Coroutine _coroutine;
 
         #endregion Fields
@@ -62,7 +61,7 @@ namespace DonutDiner.ItemModule.Items
 
             gameObject.layer = LayerMask.NameToLayer(Layer.Item);
 
-            if (OnDrop != null) { OnDrop.Invoke(); }
+            if (OnDrop != null) { OnDrop.Invoke(); return; }
 
             if (_coroutine != null) StopCoroutine(_coroutine);
 

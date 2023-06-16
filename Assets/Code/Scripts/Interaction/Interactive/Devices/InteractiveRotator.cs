@@ -14,15 +14,15 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
         [SerializeField] private IPuzzlePiece puzzlePiece;
         [SerializeField] private KeyItemSpot keySpot;
         [SerializeField] private ItemObject itemNeeded;
-        [SerializeField] private int maxRotationIncrements; //multiplied by the increment [e.g. rotationNeeded = 1 checks for 45degrees]
+        [SerializeField] private int maxRotationIncrements; //multiplied by the increment [e.g. rotationNeeded = 1 checks for 30degrees]
 
         [SerializeField] private MeshRenderer renderer;
         [SerializeField] private Material offColor;
         [SerializeField] private Material onColor;
 
         private Vector3 rotationDirection = new Vector3(0, 1, 0);
-        private float increment = 45;
-        private float rotSpeed = 50;
+        private float increment = 15;
+        private float rotSpeed = 150;
         [SerializeField] private float remainingRotation;
         private int incrementCount;
         private int direction = 1;

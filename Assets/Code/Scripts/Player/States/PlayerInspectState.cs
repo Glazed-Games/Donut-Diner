@@ -1,5 +1,4 @@
 using DonutDiner.FrameworkModule;
-using DonutDiner.ItemModule;
 using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.Data;
 using DonutDiner.PlayerModule.States.DTOs;
@@ -23,7 +22,7 @@ namespace DonutDiner.PlayerModule.States
         public static GameObject TextInput;
         public static GameObject DonutBoxPanel;
         public static GameObject JournalPanel;
-        
+
         private InspectStateData _data;
 
         #endregion Fields
@@ -39,10 +38,6 @@ namespace DonutDiner.PlayerModule.States
             ActivateUI();
             SetItemToInspect();
 
-            if (_data.ItemToInspect.gameObject.GetComponent<ItemToInputInto>())
-            {
-                UIPanelManager.EnableTextInput(TextInput);
-            }
             if (_data.ItemToInspect.gameObject.GetComponent<ItemToInputInto>())
             {
                 UIPanelManager.EnableTextInput(TextInput);
@@ -166,7 +161,9 @@ namespace DonutDiner.PlayerModule.States
         {
             GameStateManager.Instance.ChangeState(GameState.UI);
 
-            UIPanelManager.ToggleUIPanel(Panel);
+            //UIPanelManager.ToggleUIPanel(Panel);
+            //UIPanelManager.ToggleUIPanel(TextInput);
+            UIPanelManager.CloseAllPanels();
 
             Player.InspectionLightSource.SetActive(false);
             Player.FirstPersonCamera.fieldOfView = _initialFOV;

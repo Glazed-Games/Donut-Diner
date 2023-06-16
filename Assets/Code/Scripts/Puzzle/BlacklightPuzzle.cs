@@ -1,7 +1,4 @@
 using DonutDiner.InteractionModule.Interactive;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace DonutDiner.FrameworkModule
 {
@@ -10,9 +7,8 @@ namespace DonutDiner.FrameworkModule
         // Start is called before the first frame update
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-
         }
 
         public override void TryToSolve()
@@ -37,6 +33,5 @@ namespace DonutDiner.FrameworkModule
                 }
             }
         }
-
     }
 }

@@ -94,10 +94,12 @@ namespace DonutDiner.PlayerModule
 
                 return;
             }
-            if (_isUIEnabled)
-            {
-                //  return;
-            }
+
+            //if (_isUIEnabled)
+            //{
+            //    return;
+            //}
+
             Transform interaction = _interaction.Interaction;
 
             if (TryHandleInteractive(interaction)) return;
@@ -114,7 +116,16 @@ namespace DonutDiner.PlayerModule
 
         private void OnInventoryPressed(InputAction.CallbackContext callback)
         {
+            //if the menu is already open the inventory button should close it
+            if (_isUIEnabled)
+            {
+                _context.CurrentState.TrySwitchState(ActionType.None);
+                GameStateManager.Instance.ChangeState(GameState.Gameplay);
+                return;
+            }
+
             _context.CurrentState.TrySwitchState(ActionType.Inventory);
+            GameStateManager.Instance.ChangeState(GameState.UI);
         }
 
         private void OnPausePressed(InputAction.CallbackContext callback)
@@ -124,27 +135,28 @@ namespace DonutDiner.PlayerModule
 
         private void OnEscapePressed(InputAction.CallbackContext callback)
         {
-            if (_isUIEnabled)
+            //if in a menu or inspecting an item, escape should cancel out, otherwise it should pause and open the main menu
+            if (_isUIEnabled && GameStateManager.Instance.CurrentGameState != GameState.Paused)
             {
-                
                 _context.CurrentState.TrySwitchState(ActionType.None);
+                GameStateManager.Instance.ChangeState(GameState.Gameplay);
                 return;
             }
-            UIPanelManager.CloseMenu();
+
             GameStateManager.Instance.ChangeState(GameState.Paused);
-            // TOGGLE GAME MENU
+            UIPanelManager.CloseMenu();
         }
 
         public void ButtonCloseMenu()
         {
-            if (_isUIEnabled)
-            {
-                _context.CurrentState.TrySwitchState(ActionType.None);
-                return;
-            }
+            //if (_isUIEnabled)
+            //{
+            //    return;
+            //}
+            _context.CurrentState.TrySwitchState(ActionType.None);
 
-            //GameStateManager.Instance.ChangeState(GameState.Paused);
-            // TOGGLE GAME MENU
+            GameStateManager.Instance.ChangeState(GameState.Gameplay);
+            UIPanelManager.CloseMenu();
         }
 
         #endregion Input Actions
@@ -169,30 +181,32 @@ namespace DonutDiner.PlayerModule
 
         private void TryHandleUseItem(ItemObject item)
         {
-            
             if (item == null)
             { return; }
 
             GameObject _prefab = null;
             ItemPooler.Instance.ItemsToExamine.TryGetValue(item.Id, out _prefab);
-            if (_prefab)
-            {
-                _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(_prefab.transform));
+            if (!_prefab) return;
 
+            if (_isUIEnabled)
+            {
+                _prefab.transform.position = Player.Hand.position;
+                _prefab.SetActive(true);
+
+                GameStateManager.Instance.ChangeState(GameState.Gameplay);
+
+                _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(_prefab.transform));
+                return;
             }
-            
-            // _context.CurrentState.TryHandleUseItem(item);
         }
 
         private bool TryHandleItem(Transform interaction)
         {
-
             if (!_interaction.TryGetItem(out IItem item)) return false;
-   
+
             switch (item)
             {
                 case ItemToPickUp:
-                    // HANDLE PICKING UP
                     interaction.GetComponent<ItemToPickUp>().AddToInventory();
                     PlayerInventory.Instance.AddItemToInventory(interaction.GetComponent<ItemToPickUp>().Root);
                     break;
@@ -202,9 +216,7 @@ namespace DonutDiner.PlayerModule
                     break;
 
                 case ItemToInputInto when interaction.TryGetComponent(out ItemToInputInto _):
-
-                    _context.CurrentState.TrySwitchState(ActionType.Inspect, new TransformActionDTO(interaction));
-                    ToggleInputReading(false, true);
+                    _context.CurrentState.TrySwitchState(ActionType.Dialogue, new TransformActionDTO(interaction));
                     break;
 
                 case ItemToInspect when interaction.TryGetComponent(out ItemToCarry _):
@@ -242,32 +254,38 @@ namespace DonutDiner.PlayerModule
 
         private void OnGameStateChanged(GameState gameState)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            
+            CursorLockMode lockstate = CursorLockMode.Locked;
+            bool visible = true;
+
             switch (gameState)
             {
                 case GameState.Gameplay:
                     EnableInputActions();
                     ToggleInputReading(true, false);
+                    lockstate = CursorLockMode.Locked;
+                    visible = false;
                     break;
 
                 case GameState.Paused:
                     DisableInputActions();
                     ToggleInputReading(false, false);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    UIPanelManager.OpenMenu();
+                    lockstate = CursorLockMode.None;
+                    visible = true;
                     break;
 
                 case GameState.UI:
                     EnableInputActions();
                     ToggleInputReading(false, true);
+                    lockstate = CursorLockMode.None;
+                    visible = true;
                     break;
 
                 default:
                     break;
             }
+
+            Cursor.lockState = lockstate;
+            Cursor.visible = visible;
         }
 
         private void SetGameplayInput()

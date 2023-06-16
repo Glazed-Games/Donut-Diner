@@ -12,6 +12,11 @@ namespace DonutDiner.UI.Menus
 
         private int current_page;
 
+        public void OnEnable()
+        {
+            SetPage(current_page);
+        }
+
         public void ChangePage(int _change)
         {
             //disable the current page

@@ -34,7 +34,7 @@ namespace DonutDiner.PlayerModule
         }
 
         public void TryItem(ItemObject item)
-        { 
+        {
             Debug.Log("TRY HANDLE USE ITEM");
         }
 
@@ -110,9 +110,8 @@ namespace DonutDiner.PlayerModule
         public List<ItemObject> GetDonuts()
         {
             if (donuts == null)
-            { 
+            {
                 donuts = new List<ItemObject>();
-
             }
 
             return donuts;

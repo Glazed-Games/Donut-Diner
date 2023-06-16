@@ -32,7 +32,9 @@ namespace DonutDiner.FrameworkModule
                 Debug.Log("Puzzle: " + el.IsSolved());
                 if (!el.IsSolved()) { _solved = false; }
             }
+
             if (!_solved) { return; }
+
             ApplySolution();
         }
 

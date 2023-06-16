@@ -20,7 +20,7 @@ namespace DonutDiner.InteractionModule.Interactive
         [SerializeField] private Material onColor;
 
         private float spherecastRadius = 0.1f;
-        private float spherecastDistance = 20;
+        private float spherecastDistance = 130;
 
         [SerializeField] private LightReflector reflectedLightTarget; //the reflector that this reflector is bouncing light onto
 
@@ -121,6 +121,7 @@ namespace DonutDiner.InteractionModule.Interactive
                 //if the reflector isnt already on
                 reflectorHit.ReceiveLight(true);
                 reflectedLightTarget = reflectorHit;
+                reflectorHit.CheckInFront();
             }
             else
             {

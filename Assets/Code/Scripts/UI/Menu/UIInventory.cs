@@ -1,6 +1,5 @@
 using DonutDiner.ItemModule;
 using DonutDiner.PlayerModule;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -102,8 +101,8 @@ namespace DonutDiner.UIModule.Menu
 
         public void DonutButtonOnClick(ItemObject item)
         {
-            Debug.Log("DonutButtonOnClick TRY HANDLE USE ITEM");
             if (item == null) { return; }
+            //NOTE: this is outside the if block for testing purposes
             PlayerInventory.tryUseItem(item);
 
             if (PlayerInventory.Instance.GetInventory().Contains(item))
@@ -113,7 +112,6 @@ namespace DonutDiner.UIModule.Menu
 
                 //if (_prefab)
                 //{ PlayerInventory.tryUseItem(item); }
-                
             }
         }
 

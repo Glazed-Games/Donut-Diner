@@ -12,7 +12,7 @@ namespace DonutDiner.PlayerModule.States.Data
         public Vector3 Momentum { get; set; } = Vector3.zero;
         public Transform Transform { get; set; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -35,7 +35,7 @@ namespace DonutDiner.PlayerModule.States.Data
             Transform = dto.Transform;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Public Methods
 
@@ -68,6 +68,6 @@ namespace DonutDiner.PlayerModule.States.Data
             return new PlayerActionDTO(Speed, IsCrouching, Momentum, Transform);
         }
 
-        #endregion
+        #endregion Public Methods
     }
 }

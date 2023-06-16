@@ -1,5 +1,4 @@
 using DonutDiner.FrameworkModule;
-using DonutDiner.ItemModule;
 using UnityEngine;
 
 namespace DonutDiner.PlayerModule.States
@@ -8,7 +7,7 @@ namespace DonutDiner.PlayerModule.States
     {
         #region Fields
 
-        private readonly float _maxVerticalAngle = 90.0f;
+        private readonly float _maxVerticalAngle = 80.0f;
         private readonly float _minVerticalAngle = -75.0f;
         private float _mouseX;
         private float _mouseY;
@@ -27,10 +26,10 @@ namespace DonutDiner.PlayerModule.States
             _mouseX = PlayerInput.ViewInputValues.x * GameOptions.MouseSensitivity * Time.deltaTime;
             _mouseY = PlayerInput.ViewInputValues.y * GameOptions.MouseSensitivity * Time.deltaTime;
 
+            ClampViewAngle();
+
             Player.Sight.Rotate(Vector3.left * _mouseY);
             Player.Transform.Rotate(Vector3.up * _mouseX);
-
-            ClampViewAngle();
         }
 
         public virtual void TryHandleUseItem(Transform item)
@@ -52,7 +51,8 @@ namespace DonutDiner.PlayerModule.States
 
         protected virtual void ClampViewAngle()
         {
-            _xAxisRotation += _mouseY;
+            //  _xAxisRotation += _mouseY;
+            _xAxisRotation = Vector3.Angle(Player.Transform.forward, Player.Sight.forward) * Mathf.Sign(Player.Sight.forward.y) + _mouseY;
 
             if (_xAxisRotation > _maxVerticalAngle)
             {

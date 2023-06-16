@@ -11,14 +11,14 @@ namespace DonutDiner.ItemModule
 
         [SerializeField] private ItemDatabase _itemDatabase;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
         public ItemDatabase ItemDatabase { get; private set; }
         public Dictionary<string, GameObject> ItemsToExamine { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Protected Methods
 
@@ -31,7 +31,7 @@ namespace DonutDiner.ItemModule
             CreatePool();
         }
 
-        #endregion
+        #endregion Protected Methods
 
         #region Private Methods
 
@@ -72,6 +72,6 @@ namespace DonutDiner.ItemModule
 
 #endif
 
-        #endregion
+        #endregion Private Methods
     }
 }

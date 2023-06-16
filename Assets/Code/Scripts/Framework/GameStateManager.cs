@@ -8,14 +8,14 @@ namespace DonutDiner.FrameworkModule
 
         public event Action<GameState> OnGameStateChanged = delegate { };
 
-        #endregion
+        #endregion Delegates
 
         #region Properties
 
         public GameState CurrentGameState { get; private set; }
         public GameState? PreviousGameState { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Public Methods
 
@@ -29,7 +29,7 @@ namespace DonutDiner.FrameworkModule
             OnGameStateChanged(newGameState);
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Protected Methods
 
@@ -38,7 +38,7 @@ namespace DonutDiner.FrameworkModule
             CurrentGameState = GameState.Gameplay;
         }
 
-        #endregion
+        #endregion Protected Methods
 
         #region Private Methods
 
@@ -67,6 +67,6 @@ namespace DonutDiner.FrameworkModule
             return gameState;
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

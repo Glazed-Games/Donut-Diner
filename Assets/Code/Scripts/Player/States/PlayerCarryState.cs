@@ -11,8 +11,11 @@ namespace DonutDiner.PlayerModule.States
 
         public override void EnterState(PlayerActionDTO dto)
         {
-            StateData = new PlayerStateData(dto);
+            //if carrying and object already, drop it and then pick up the new item
+            if (StateData != null && StateData.Transform != null)
+            { DropItem(); }
 
+            StateData = new PlayerStateData(dto);
             CarryItem();
         }
 
@@ -34,14 +37,15 @@ namespace DonutDiner.PlayerModule.States
             switch (action)
             {
                 case ActionType.None:
-                    DropItem();
+                    if (StateData != null && StateData.Transform != null)
+                    { DropItem(); }
                     RemoveState();
                     return true;
 
                 case ActionType.Carry:
-                    DropItem();
-                    RemoveState();
-                    return true;
+                    if (StateData != null && StateData.Transform != null)
+                    { DropItem(); }
+                    return false;
 
                 case ActionType.Inspect when StateData.Transform.TryGetComponent(out ItemToInspect _):
                     SuperState.PushState(StateMachine.Inspect(), new TransformActionDTO(StateData.Transform));
@@ -49,6 +53,14 @@ namespace DonutDiner.PlayerModule.States
 
                 case ActionType.Interact when dto is ItemSpotActionDTO actionDto:
                     return TryPlaceItem(actionDto.ItemSpot);
+
+                case ActionType.Inventory:
+                    // PopState();
+                    //StateData.SetData(dto);
+                    AppendState(StateMachine.Menu());
+                    // SuperState.PushState(StateMachine.Menu(), dto);
+
+                    return true;
 
                 default:
                     return false;

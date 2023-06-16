@@ -76,10 +76,15 @@ namespace DonutDiner.PlayerModule.States
                     AppendState(StateMachine.Carry());
                     return true;
 
-                //case ActionType.Dialogue:
-                //    StateData.SetData(dto);
-                //    PushState(StateMachine.Dialogue());
-                //    return true;
+                case ActionType.Dialogue:
+                    StateData.SetData(dto);
+                    PushState(StateMachine.Dialogue());
+                    return true;
+
+                case ActionType.Inventory:
+                    StateData.SetData(dto);
+                    AppendState(StateMachine.Menu());
+                    return true;
 
                 default:
                     return false;

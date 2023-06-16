@@ -104,16 +104,16 @@ namespace DonutDiner.UIModule
             }
         }
 
-        public static void OpenMenu() 
+        public static void OpenMenu()
         {
             if (PlayerInspectState.JournalPanel)
             {
-                PlayerInspectState.DonutBoxPanel.SetActive(true);
+                //  PlayerInspectState.DonutBoxPanel.SetActive(true);
                 PlayerInspectState.JournalPanel.SetActive(true);
                 PlayerInspectState.Panel.SetActive(true);
             }
-
         }
+
         public static void CloseMenu()
         {
             if (PlayerInspectState.JournalPanel)
@@ -122,7 +122,7 @@ namespace DonutDiner.UIModule
                 PlayerInspectState.JournalPanel.SetActive(false);
                 PlayerInspectState.Panel.SetActive(false);
             }
-
+            CloseAllPanels();
         }
 
         #endregion Public Methods
@@ -136,7 +136,11 @@ namespace DonutDiner.UIModule
             PlayerInspectState.DonutBoxPanel = _donutBoxPanel;
             PlayerInspectState.JournalPanel = _journalPanel;
 
-            
+            PlayerMenuState.Panel = _journalPanel;
+
+            PlayerDialogueState.Panel = _inspectionPanel;
+            PlayerDialogueState.TextInput = _inputTextObj;
+
             //DialogueManager.Panel = _dialoguePanel;
 
             _panels = new GameObject[]
@@ -144,7 +148,10 @@ namespace DonutDiner.UIModule
                 PlayerInspectState.Panel,
                 PlayerInspectState.TextInput,
                 PlayerInspectState.DonutBoxPanel,
-                PlayerInspectState.JournalPanel
+                PlayerInspectState.JournalPanel,
+                PlayerDialogueState.TextInput,
+                PlayerDialogueState.Panel,
+                PlayerDialogueState.TextInput
                 //DialogueManager.Panel
             };
         }

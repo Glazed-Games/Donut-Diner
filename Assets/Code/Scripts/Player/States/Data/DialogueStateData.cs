@@ -1,21 +1,24 @@
-﻿using DonutDiner.ItemModule.Items;
+using DonutDiner.InteractionModule.Interactive;
+using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.DTOs;
 using UnityEngine;
 
 namespace DonutDiner.PlayerModule.States.Data
 {
-    public class InspectStateData : PlayerStateData
+    public class DialogueStateData : PlayerStateData
     {
         #region Properties
 
+        public ItemToInputInto ItemToInputInto;
         public ItemToInspect ItemToInspect;
+        public NPC character;
         public GameObject Prefab;
 
         #endregion Properties
 
         #region Constructor
 
-        public InspectStateData(PlayerActionDTO dto) : base(dto)
+        public DialogueStateData(PlayerActionDTO dto) : base(dto)
         {
         }
 

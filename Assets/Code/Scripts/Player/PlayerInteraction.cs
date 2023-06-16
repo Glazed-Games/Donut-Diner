@@ -17,6 +17,7 @@ namespace DonutDiner.PlayerModule
 
         [SerializeField] private float _distanceToExamine = 10.0f;
         [SerializeField] private float _distanceToInteract = 3.0f;
+        [SerializeField] private float _spherecastRadius = 0.05f;
         [SerializeField] private LayerMask _layersToExamine;
 
         private Transform _examinationObject;
@@ -112,7 +113,8 @@ namespace DonutDiner.PlayerModule
 
         private bool CanExamine(out RaycastHit hit)
         {
-            return Physics.Raycast(Player.Sight.position,
+            return Physics.SphereCast(Player.Sight.position,
+                                    _spherecastRadius,
                                    Player.Sight.forward,
                                    out hit,
                                    _distanceToExamine,
