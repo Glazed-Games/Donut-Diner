@@ -149,10 +149,6 @@ namespace DonutDiner.PlayerModule
 
         public void ButtonCloseMenu()
         {
-            //if (_isUIEnabled)
-            //{
-            //    return;
-            //}
             _context.CurrentState.TrySwitchState(ActionType.None);
 
             GameStateManager.Instance.ChangeState(GameState.Gameplay);
@@ -186,6 +182,7 @@ namespace DonutDiner.PlayerModule
 
             GameObject _prefab = null;
             ItemPooler.Instance.ItemsToExamine.TryGetValue(item.Id, out _prefab);
+
             if (!_prefab) return;
 
             if (_isUIEnabled)

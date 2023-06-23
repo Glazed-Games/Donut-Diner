@@ -21,7 +21,7 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
         [SerializeField] private Material onColor;
 
         private Vector3 rotationDirection = new Vector3(0, 1, 0);
-        private float increment = 15;
+        private float increment = 45;
         private float rotSpeed = 150;
         [SerializeField] private float remainingRotation;
         private int incrementCount;

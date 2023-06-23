@@ -124,11 +124,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 450334313915901221}
-  - component: {fileID: 450334313915901220}
+  - component: {fileID: 2687771331735828964}
   - component: {fileID: 450334313915901219}
   - component: {fileID: 450334313915901218}
+  - component: {fileID: 450334313915901220}
   m_Layer: 13
-  m_Name: LeverSwitch (1)
+  m_Name: Usable_Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,6 +154,65 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2687771331735828964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450334313915901217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143bd1dbc2e6ae44b89c844c70d0ecc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: "Switches default to being usable and unlocked.\nif:\n\t-Keyspot is assigned:
+    the switch is only usable when that specific 'keyspot' has the item it requires\n\t-ItemNeeded
+    is assigned: the switch checks that the player posses the specific item before
+    acting\n\nWhen the player interacts with the switch while it is unlocked, it
+    calls 'StartInteraction' on all objects in the list of \"Controlled Devices\"\n"
+--- !u!114 &450334313915901219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450334313915901217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3b8e168d5309d4c997db244911752d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 9a5fa767-9343-42a7-9f32-739a9fec2670
+  _isLocked: 0
+  _canInteract: 1
+  IsActivated: 0
+  keySpot: {fileID: 0}
+  itemNeeded: {fileID: 0}
+  controlledDevices: []
+  _isOpen: 0
+  _isTriggered: 0
+  _shouldStayOpen: 0
+  _secondsToClose: 0
+  _layersToTrigger:
+    serializedVersion: 2
+    m_Bits: 0
+  debugShowControlledDevices: 0
+  debugRayLifeTime: 0
+  debugRayColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!65 &450334313915901218
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450334313915901217}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.3, z: 0.7}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!95 &450334313915901220
 Animator:
   serializedVersion: 5
@@ -174,46 +234,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &450334313915901219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450334313915901217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e3b8e168d5309d4c997db244911752d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: c24695ee-af55-48d4-a0cb-06b62d9633f7
-  _isLocked: 0
-  _canInteract: 0
-  IsActivated: 0
-  debugShowControlledDevices: 0
-  controlledDevices:
-  - {fileID: 0}
-  - {fileID: 0}
-  _isOpen: 0
-  _isTriggered: 0
-  _shouldStayOpen: 0
-  _secondsToClose: 0
-  _layersToTrigger:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!65 &450334313915901218
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450334313915901217}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.4, z: 1}
-  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &450334314146747361
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +246,7 @@ GameObject:
   - component: {fileID: 450334314146747365}
   - component: {fileID: 450334314146747364}
   - component: {fileID: 450334314146747363}
-  m_Layer: 13
+  m_Layer: 2
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,10 +327,10 @@ BoxCollider:
   m_GameObject: {fileID: 450334314146747361}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 3.3541317}
-  m_Center: {x: 0, y: -2.0728717e-16, z: -1.1770669}
+  m_Size: {x: 1, y: 1, z: 1.0097382}
+  m_Center: {x: 0.00000016761207, y: -5.3980726e-11, z: -0.0048800004}
 --- !u!1 &450334314288038977
 GameObject:
   m_ObjectHideFlags: 0

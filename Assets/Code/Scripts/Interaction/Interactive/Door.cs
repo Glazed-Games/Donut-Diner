@@ -7,7 +7,7 @@ namespace DonutDiner.InteractionModule.Interactive
     public class Door : SerializableObject, IInteractive
     {
         #region Fields
-         
+
         [SerializeField] private bool _isOpen;
         [SerializeField] private bool _isLocked;
 
@@ -24,11 +24,7 @@ namespace DonutDiner.InteractionModule.Interactive
 
         #endregion Fields
 
-        #region Properties
 
- 
-
-        #endregion Properties
 
         #region Unity Methods
 
@@ -91,7 +87,7 @@ namespace DonutDiner.InteractionModule.Interactive
 
         public void IsLocked(bool value)
         {
-            _isLocked = !value;
+            _isLocked = value;
         }
 
         #endregion Public Methods

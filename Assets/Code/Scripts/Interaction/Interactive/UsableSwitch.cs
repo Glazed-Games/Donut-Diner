@@ -9,6 +9,19 @@ using UnityEngine;
 
 namespace DonutDiner.InteractionModule.Interactive.Devices
 {
+    /* ===How the switch works===
+     * 
+     * Switches default to being usable and unlocked.
+     * if:
+     *  -Keyspot is assigned: the switch is only usable when that specific 'keyspot' has the item it requires
+     *  -ItemNeeded is assigned: the switch checks that the player posses the specific item before acting
+     * 
+     * When the player interacts with the switch while it is unlocked, it calls 'StartInteraction' on all objects in the list of "Controlled Devices"
+     * 
+     */
+
+
+
     [ExecuteInEditMode]
     public class UsableSwitch : InteractiveDevice
     {

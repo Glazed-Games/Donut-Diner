@@ -7,20 +7,20 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
     [ExecuteInEditMode]
     public class SpinningStatue : SerializableObject, IPuzzlePiece
     {
-        public float debugcurrentAngleDifference;
-        public bool debugTurnOn;
-        public bool debugIsSolved;
-
         [SerializeField] private Puzzle puzzle;
-        [SerializeField] private int rotationNeeded; //multiplied by the invrement [e.g. rotationNeeded = 1 checks for 45degrees]
+
+        //rotation needed is set as an int to prevent the value from being set to a value that is not possible based on the rotation increments
+        [SerializeField] private int rotationNeeded; //multiplied by the increment [e.g. rotationNeeded = 1 checks for 45degrees]
 
         [SerializeField] private Vector3 rotationDirection = new Vector3(0, 1, 0);
-        private float INCREMENT = 45; //constant: dealing in a set rotation amount to prevent clerical off by one puzzle problems
+        [SerializeField] private float INCREMENT = 45; //constant: dealing in a set rotation amount to prevent clerical off by one puzzle problems
 
         [Header("Debug: Editor window shows ray in the 'solution' direction")]
         [SerializeField] private bool debugShowSolution;
 
         [SerializeField] private Color debugRayColor = Color.green;
+        public float debugCurrentAngleDifference;
+        public bool debugIsSolved;
 
         public void SetPuzzle(Puzzle newPuzzle)
         { puzzle = newPuzzle; }
@@ -28,7 +28,7 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
         public bool IsSolved()
         {
             float angleDifference = AngleDifference();
-            debugcurrentAngleDifference = angleDifference;
+            debugCurrentAngleDifference = angleDifference;
             //check the difference against half the increment to further lean in favor of the player if they check the solution while the statues are still moving
             if (Mathf.Abs(angleDifference) < INCREMENT)
             {
@@ -55,7 +55,7 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
         {
             if (debugShowSolution)
             {
-                debugcurrentAngleDifference = transform.rotation.eulerAngles.y;
+                debugCurrentAngleDifference = transform.rotation.eulerAngles.y;
                 Vector3 vec = Quaternion.AngleAxis((INCREMENT * rotationNeeded), rotationDirection) * Vector3.forward;
                 Debug.DrawRay(transform.position, vec, debugRayColor);
             }

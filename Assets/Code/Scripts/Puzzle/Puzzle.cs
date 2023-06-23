@@ -17,8 +17,7 @@ namespace DonutDiner.FrameworkModule
         //[SerializeField] private UnityEvent OnSolved;
         //[SerializeField] private UnityEvent OnUnSolved;
 
-        // Start is called before the first frame update
-        private void Start()
+        private void OnEnable()
         {
             //set the list of puzzle pieces, if the list is currently empty it checks it's transforms children for IPuzzlePiece
             Pieces();
@@ -29,7 +28,6 @@ namespace DonutDiner.FrameworkModule
             _solved = true;
             foreach (IPuzzlePiece el in Pieces())
             {
-                Debug.Log("Puzzle: " + el.IsSolved());
                 if (!el.IsSolved()) { _solved = false; }
             }
 
@@ -44,6 +42,7 @@ namespace DonutDiner.FrameworkModule
             {
                 if (LockedObject().GetComponent<IInteractive>() != null)
                 {
+                    LockedObject().GetComponent<IInteractive>().IsLocked(false);
                     LockedObject().GetComponent<IInteractive>().StartInteraction();
                     Solved = true;
                 }
