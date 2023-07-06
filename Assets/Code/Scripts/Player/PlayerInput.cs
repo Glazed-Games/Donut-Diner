@@ -7,6 +7,7 @@ using DonutDiner.PlayerModule.States.DTOs;
 using DonutDiner.UIModule;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Yarn.Unity;
 
 namespace DonutDiner.PlayerModule
 {
@@ -163,8 +164,8 @@ namespace DonutDiner.PlayerModule
 
             switch (interactive)
             {
-                case NPC:
-                    _context.CurrentState.TrySwitchState(ActionType.Dialogue, new TransformActionDTO(interaction));
+                case NPC :
+                        _context.CurrentState.TrySwitchState(ActionType.Dialogue, new TransformActionDTO(interaction));
                     break;
 
                 default:
@@ -359,6 +360,7 @@ namespace DonutDiner.PlayerModule
             _context = GetComponent<PlayerController>();
             _interaction = GetComponent<PlayerInteraction>();
         }
+
 
         #endregion Private Methods
     }

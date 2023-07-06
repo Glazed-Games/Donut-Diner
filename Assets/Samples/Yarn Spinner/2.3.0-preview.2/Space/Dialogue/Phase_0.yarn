@@ -1,0 +1,43 @@
+﻿title: Phase_0
+tags: 
+colorID: 0
+---
+Player: Hey, Sally. 
+Sally: Uah! 
+Sally: You snuck up on me.
+Sally: Don't do that. 
+
+
+
+===
+title: Phase_0_Character_D
+tags: 
+colorID: 0
+---
+Player: Hey, Character_A. 
+Character_A: Uah! 
+===
+
+title: Phase_0_Character_B
+tags: 
+colorID: 0
+---
+Player: Hey, Character_B. 
+Character_B: Uah! 
+===
+
+title: Phase_0_Character_A
+tags: 
+colorID: 0
+---
+Player: Hey, Character_A. 
+Character_A: Uah! 
+===
+
+title: Character_C
+tags: 
+colorID: 0
+---
+Player: Yo, Character_C. 
+Character_C: Whoa! 
+===

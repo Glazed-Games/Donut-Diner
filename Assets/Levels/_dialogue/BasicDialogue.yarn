@@ -1,0 +1,56 @@
+﻿title: BasicDialogue
+tags: 
+colorID: 0
+---
+<<if visited("BasicDialogue") is false>>
+    Player: Hey, Sally. 
+    Sally: Uah! 
+    Sally: You snuck up on me.
+    Sally: Don't do that. 
+<<else>>
+    Player: Hey.
+    Sally: Hi. 
+<<endif>>
+
+
+===
+
+title: BasicDialogue2
+tags: 
+colorID: 0
+---
+<<if visited("BasicDialogue") is false>>
+    Player: Hey, Sally. 
+    Sally: Uah! 
+    Sally: You snuck up on me.
+    Sally: Don't do that. 
+<<else>>
+    Player: Hey.
+    Sally: Hi. 
+<<endif>>
+
+
+===
+
+title: Phase_B_Character_B
+tags: 
+colorID: 0
+---
+Player: Hey, Character_B. 
+Character_B: Uah! 
+===
+
+title: Character_B_0
+tags: 
+colorID: 0
+---
+Player: 0. 
+Character_B: 0! 
+===
+title: Character_B_1
+tags: 
+colorID: 0
+---
+Player: 1. 
+Character_B: 1! 
+===

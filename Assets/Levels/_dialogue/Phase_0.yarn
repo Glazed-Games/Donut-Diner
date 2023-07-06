@@ -1,0 +1,47 @@
+﻿title: Character_D
+tags: 
+colorID: 0
+---
+<<if visited("Character_D") is false>>
+    Player: Hey, Character_D. 
+    Character_D: Uah! 
+    Sally: what.
+<<else>>
+    Player: well hello again Character_D.
+    Character_D: Hi. 
+<<endif>>
+
+
+===
+
+
+title: Phase_0_Character_B
+tags: 
+colorID: 0
+---
+Player: Hey, Character_B. 
+Character_B: Uah! 
+===
+
+title: Phase_0_Character_A
+tags: 
+colorID: 0
+---
+Player: Hey, Character_A. 
+Character_A: Uah! 
+===
+
+title: Character_C
+tags: 
+colorID: 0
+---
+Player: Yo, Character_C. 
+Character_C: Whoa! 
+===
+title: Character_B_2
+tags: 
+colorID: 0
+---
+Player: 2. 
+Character_B: 2! 
+===
