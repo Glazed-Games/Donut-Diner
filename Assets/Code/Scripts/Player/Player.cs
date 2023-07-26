@@ -12,7 +12,7 @@ namespace DonutDiner.PlayerModule
         [SerializeField] private Transform _itemPlacement;
         [SerializeField] private GameObject _lightSource;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -24,7 +24,7 @@ namespace DonutDiner.PlayerModule
         public static Transform InspectionItemPlacement { get; private set; }
         public static GameObject InspectionLightSource { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -39,6 +39,6 @@ namespace DonutDiner.PlayerModule
             InspectionLightSource = _lightSource;
         }
 
-        #endregion
+        #endregion Unity Methods
     }
 }

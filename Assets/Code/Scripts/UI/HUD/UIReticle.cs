@@ -13,7 +13,7 @@ namespace DonutDiner.UIModule.HUD
         private Image _reticleImage;
         private PlayerInteraction _playerInteraction;
 
-        #endregion
+        #endregion Fields
 
         #region Unity Methods
 
@@ -39,7 +39,7 @@ namespace DonutDiner.UIModule.HUD
             }
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Private Methods
 
@@ -48,6 +48,6 @@ namespace DonutDiner.UIModule.HUD
             _reticleImage.color = canExamine ? canInteract ? Color.green : Color.red : Color.white;
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

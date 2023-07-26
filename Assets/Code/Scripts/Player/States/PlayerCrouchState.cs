@@ -1,4 +1,3 @@
-using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.Data;
 using DonutDiner.PlayerModule.States.DTOs;
 using System.Collections;
@@ -22,7 +21,7 @@ namespace DonutDiner.PlayerModule.States
 
         private CrouchStateData _data;
 
-        #endregion
+        #endregion Fields
 
         #region Overriden Methods
 
@@ -84,7 +83,8 @@ namespace DonutDiner.PlayerModule.States
                     return true;
 
                 case ActionType.Interact when dto is InteractiveActionDTO actionDto:
-                    actionDto.Interactive.StartInteraction();
+                    if (actionDto.Interactive.IsInteractable())
+                    { actionDto.Interactive.StartInteraction(); }
                     return false;
 
                 case ActionType.Interact when dto is ItemSpotActionDTO actionDto:
@@ -94,6 +94,10 @@ namespace DonutDiner.PlayerModule.States
                     AppendState(StateMachine.Carry());
                     return true;
 
+                case ActionType.Inventory:
+                    StateData.SetData(dto);
+                    AppendState(StateMachine.Menu());
+                    return true;
                 //case ActionType.Dialogue:
                 //    StateData.SetData(dto);
                 //    PushState(StateMachine.Dialogue());
@@ -104,7 +108,7 @@ namespace DonutDiner.PlayerModule.States
             }
         }
 
-        #endregion
+        #endregion Overriden Methods
 
         #region Private Methods
 
@@ -206,8 +210,8 @@ namespace DonutDiner.PlayerModule.States
             return velocityVector;
         }
 
-        #endregion
+        #endregion Coroutine
 
-        #endregion
+        #endregion Private Methods
     }
 }

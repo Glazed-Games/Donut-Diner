@@ -11,7 +11,7 @@ namespace DonutDiner.PlayerModule.States.Data
         public ItemToInspect ItemToInspect;
         public GameObject Prefab;
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -19,6 +19,6 @@ namespace DonutDiner.PlayerModule.States.Data
         {
         }
 
-        #endregion
+        #endregion Constructor
     }
 }

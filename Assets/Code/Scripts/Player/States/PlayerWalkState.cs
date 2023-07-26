@@ -1,4 +1,3 @@
-using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.Data;
 using DonutDiner.PlayerModule.States.DTOs;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace DonutDiner.PlayerModule.States
         [SerializeField] private float _acceleration = 0.0f;
         [SerializeField] private float _gravityPull = 10.0f;
 
-        #endregion
+        #endregion Fields
 
         #region Overriden Methods
 
@@ -73,7 +72,8 @@ namespace DonutDiner.PlayerModule.States
                     return true;
 
                 case ActionType.Interact when dto is InteractiveActionDTO actionDto:
-                    actionDto.Interactive.StartInteraction();
+                    if (actionDto.Interactive.IsInteractable())
+                    { actionDto.Interactive.StartInteraction(); }
                     return false;
 
                 case ActionType.Interact when dto is ItemSpotActionDTO actionDto:
@@ -83,6 +83,10 @@ namespace DonutDiner.PlayerModule.States
                     AppendState(StateMachine.Carry());
                     return true;
 
+                case ActionType.Inventory:
+                    StateData.SetData(dto);
+                    AppendState(StateMachine.Menu());
+                    return true;
                 //case ActionType.Dialogue:
                 //    StateData.SetData(dto);
                 //    PushState(StateMachine.Dialogue());
@@ -93,7 +97,7 @@ namespace DonutDiner.PlayerModule.States
             }
         }
 
-        #endregion
+        #endregion Overriden Methods
 
         #region Private Methods
 
@@ -116,6 +120,6 @@ namespace DonutDiner.PlayerModule.States
 
         private bool HasNoInput() => PlayerInput.MovementInputValues.y == 0.0f && PlayerInput.MovementInputValues.x == 0.0f;
 
-        #endregion
+        #endregion Private Methods
     }
 }

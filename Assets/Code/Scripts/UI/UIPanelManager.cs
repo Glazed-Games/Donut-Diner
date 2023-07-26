@@ -1,5 +1,7 @@
 ﻿using DonutDiner.PlayerModule.States;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace DonutDiner.UIModule
 {
@@ -9,11 +11,14 @@ namespace DonutDiner.UIModule
 
         [SerializeField] private GameObject _hudPanel;
         [SerializeField] private GameObject _inspectionPanel;
+        [SerializeField] private GameObject _inputTextObj;
+        [SerializeField] private GameObject _donutBoxPanel;
+        [SerializeField] private GameObject _journalPanel;
         //[SerializeField] private GameObject _dialoguePanel;
 
         private static GameObject[] _panels;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -30,7 +35,7 @@ namespace DonutDiner.UIModule
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -44,16 +49,40 @@ namespace DonutDiner.UIModule
             CloseAllPanels();
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Public Methods
 
         public static void ToggleUIPanel(GameObject panel)
         {
+            //clear the focus so the event system can refocus the same element if open/closing the same item multiple times
+            EventSystem.current.SetSelectedGameObject(null);
             panel.SetActive(!panel.activeSelf);
 
             Cursor.lockState = panel.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = panel.activeSelf;
+        }
+
+        public static void EnableTextInput(GameObject textInput)
+        {
+            if (textInput == null) return;
+            textInput.gameObject.SetActive(true);
+            if (textInput.GetComponent<InputField>())
+            {
+                textInput.GetComponent<InputField>().text = "";
+                EventSystem.current.SetSelectedGameObject(textInput);
+            }
+        }
+
+        public static void EnableDonutBox(GameObject donutPanel)
+        {
+            if (donutPanel == null) return;
+            donutPanel.gameObject.SetActive(true);
+            if (donutPanel.GetComponent<InputField>())
+            {
+                donutPanel.GetComponent<InputField>().text = "";
+                EventSystem.current.SetSelectedGameObject(donutPanel);
+            }
         }
 
         public static void CloseOpenPanels()
@@ -75,22 +104,58 @@ namespace DonutDiner.UIModule
             }
         }
 
-        #endregion
+        public static void OpenMenu()
+        {
+            if (PlayerInspectState.JournalPanel)
+            {
+                //  PlayerInspectState.DonutBoxPanel.SetActive(true);
+                PlayerInspectState.JournalPanel.SetActive(true);
+                PlayerInspectState.Panel.SetActive(true);
+            }
+        }
+
+        public static void CloseMenu()
+        {
+            if (PlayerInspectState.JournalPanel)
+            {
+                PlayerInspectState.DonutBoxPanel.SetActive(false);
+                PlayerInspectState.JournalPanel.SetActive(false);
+                PlayerInspectState.Panel.SetActive(false);
+            }
+            CloseAllPanels();
+        }
+
+        #endregion Public Methods
 
         #region Private Methods
 
         private void SetReferences()
         {
             PlayerInspectState.Panel = _inspectionPanel;
+            PlayerInspectState.TextInput = _inputTextObj;
+            PlayerInspectState.DonutBoxPanel = _donutBoxPanel;
+            PlayerInspectState.JournalPanel = _journalPanel;
+
+            PlayerMenuState.Panel = _journalPanel;
+
+            PlayerDialogueState.Panel = _inspectionPanel;
+            PlayerDialogueState.TextInput = _inputTextObj;
+
             //DialogueManager.Panel = _dialoguePanel;
 
             _panels = new GameObject[]
             {
                 PlayerInspectState.Panel,
+                PlayerInspectState.TextInput,
+                PlayerInspectState.DonutBoxPanel,
+                PlayerInspectState.JournalPanel,
+                PlayerDialogueState.TextInput,
+                PlayerDialogueState.Panel,
+                PlayerDialogueState.TextInput
                 //DialogueManager.Panel
             };
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

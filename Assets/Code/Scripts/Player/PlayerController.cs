@@ -13,14 +13,15 @@ namespace DonutDiner.PlayerModule
         private PlayerInput _playerInput;
         private PlayerInteraction _interaction;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
         public bool IsPaused { get; private set; }
         public PlayerBaseState CurrentState { get; private set; }
+        public PlayerBaseState debugShowState;
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -56,6 +57,7 @@ namespace DonutDiner.PlayerModule
 
         private void LateUpdate()
         {
+            debugShowState = CurrentState;
             if (IsPaused) return;
 
             CurrentState.UpdateCamera();
@@ -69,7 +71,7 @@ namespace DonutDiner.PlayerModule
             }
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Public Methods
 
@@ -78,7 +80,7 @@ namespace DonutDiner.PlayerModule
             CurrentState = newState;
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -94,6 +96,6 @@ namespace DonutDiner.PlayerModule
             _interaction = GetComponent<PlayerInteraction>();
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

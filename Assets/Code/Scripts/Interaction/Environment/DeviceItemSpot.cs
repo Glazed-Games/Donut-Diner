@@ -9,7 +9,7 @@ namespace DonutDiner.InteractionModule.Environment
 
         [SerializeField] private InteractiveDevice _linkedDevice;
 
-        #endregion
+        #endregion Fields
 
         #region Public Methods
 
@@ -17,12 +17,12 @@ namespace DonutDiner.InteractionModule.Environment
         {
             if (!base.TryPlaceItem(transform)) return false;
 
-            _linkedDevice.StartInteraction();
+            if (_linkedDevice) _linkedDevice.StartInteraction();
 
             return true;
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Protected Methods
 
@@ -30,9 +30,9 @@ namespace DonutDiner.InteractionModule.Environment
         {
             base.RemoveItem();
 
-            _linkedDevice.StartInteraction();
+            if (_linkedDevice) _linkedDevice.StartInteraction();
         }
 
-        #endregion
+        #endregion Protected Methods
     }
 }

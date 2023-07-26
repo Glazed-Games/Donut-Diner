@@ -15,7 +15,7 @@ namespace DonutDiner.InteractionModule.Environment
 
         private ItemToCarry _itemToCarry;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -23,7 +23,7 @@ namespace DonutDiner.InteractionModule.Environment
 
         public bool IsItemLocked => _isItemLocked;
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -38,7 +38,7 @@ namespace DonutDiner.InteractionModule.Environment
             if (_itemToCarry) _itemToCarry.OnCarrying -= RemoveItem;
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Public Methods
 
@@ -51,7 +51,7 @@ namespace DonutDiner.InteractionModule.Environment
             return true;
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Protected Methods
 
@@ -78,6 +78,6 @@ namespace DonutDiner.InteractionModule.Environment
 
         protected virtual bool IsAllowed(ItemToCarry item) => _itemsAllowed.Count == 0 || _itemsAllowed.Contains(item.Root);
 
-        #endregion
+        #endregion Protected Methods
     }
 }

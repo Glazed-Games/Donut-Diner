@@ -14,6 +14,7 @@ namespace DonutDiner.InteractionModule.Interactive
         [Header("Automatic Open / Close")]
         [Space]
         [SerializeField] private bool _isTriggered;
+
         [SerializeField] private bool _shouldStayOpen;
         [SerializeField] private float _secondsToClose = 0.0f;
         [SerializeField] private LayerMask _layersToTrigger;
@@ -21,13 +22,9 @@ namespace DonutDiner.InteractionModule.Interactive
         private Coroutine _closingDoor;
         private Animator _animator;
 
-        #endregion
+        #endregion Fields
 
-        #region Properties
 
-        public bool IsLocked => _isLocked;
-
-        #endregion
 
         #region Unity Methods
 
@@ -55,7 +52,7 @@ namespace DonutDiner.InteractionModule.Interactive
             if (ShouldClose() && IsTriggered(other)) PrepareCoroutine();
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Public Methods
 
@@ -68,7 +65,32 @@ namespace DonutDiner.InteractionModule.Interactive
             if (HasTimerToClose()) PrepareCoroutine();
         }
 
-        #endregion
+        public void Unlock()
+        {
+            _isLocked = false;
+        }
+
+        public bool IsInteractable()
+        {
+            return !_isLocked;
+        }
+
+        public void IsInteractable(bool value)
+        {
+            _isLocked = !value;
+        }
+
+        public bool IsLocked()
+        {
+            return _isLocked;
+        }
+
+        public void IsLocked(bool value)
+        {
+            _isLocked = value;
+        }
+
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -121,7 +143,7 @@ namespace DonutDiner.InteractionModule.Interactive
             _animator = GetComponent<Animator>();
         }
 
-        #endregion
+        #endregion Private Methods
 
         #region Serialization Methods
 
@@ -142,6 +164,6 @@ namespace DonutDiner.InteractionModule.Interactive
             SetAnimation();
         }
 
-        #endregion
+        #endregion Serialization Methods
     }
 }

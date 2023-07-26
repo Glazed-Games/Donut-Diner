@@ -1,8 +1,10 @@
 using DonutDiner.FrameworkModule;
 using DonutDiner.InteractionModule.Environment;
 using DonutDiner.InteractionModule.Interactive;
+using DonutDiner.ItemModule;
 using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.DTOs;
+using DonutDiner.UIModule;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,7 +27,7 @@ namespace DonutDiner.PlayerModule
         private PlayerController _context;
         private PlayerInteraction _interaction;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -35,7 +37,7 @@ namespace DonutDiner.PlayerModule
         public static Vector2 ZoomInputValues => _zoomInputValues;
         public static Vector2 RotationInputValues => _rotationInputValues;
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -63,7 +65,7 @@ namespace DonutDiner.PlayerModule
             UnsubscribeEvents();
         }
 
-        #endregion
+        #endregion Unity Methods
 
         #region Public Methods
 
@@ -73,7 +75,7 @@ namespace DonutDiner.PlayerModule
             else if (_isUIEnabled) SetUIInput();
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -93,6 +95,11 @@ namespace DonutDiner.PlayerModule
                 return;
             }
 
+            //if (_isUIEnabled)
+            //{
+            //    return;
+            //}
+
             Transform interaction = _interaction.Interaction;
 
             if (TryHandleInteractive(interaction)) return;
@@ -109,7 +116,16 @@ namespace DonutDiner.PlayerModule
 
         private void OnInventoryPressed(InputAction.CallbackContext callback)
         {
+            //if the menu is already open the inventory button should close it
+            if (_isUIEnabled)
+            {
+                _context.CurrentState.TrySwitchState(ActionType.None);
+                GameStateManager.Instance.ChangeState(GameState.Gameplay);
+                return;
+            }
+
             _context.CurrentState.TrySwitchState(ActionType.Inventory);
+            GameStateManager.Instance.ChangeState(GameState.UI);
         }
 
         private void OnPausePressed(InputAction.CallbackContext callback)
@@ -119,18 +135,27 @@ namespace DonutDiner.PlayerModule
 
         private void OnEscapePressed(InputAction.CallbackContext callback)
         {
-            if (_isUIEnabled)
+            //if in a menu or inspecting an item, escape should cancel out, otherwise it should pause and open the main menu
+            if (_isUIEnabled && GameStateManager.Instance.CurrentGameState != GameState.Paused)
             {
                 _context.CurrentState.TrySwitchState(ActionType.None);
-
+                GameStateManager.Instance.ChangeState(GameState.Gameplay);
                 return;
             }
 
             GameStateManager.Instance.ChangeState(GameState.Paused);
-            // TOGGLE GAME MENU
+            UIPanelManager.CloseMenu();
         }
 
-        #endregion
+        public void ButtonCloseMenu()
+        {
+            _context.CurrentState.TrySwitchState(ActionType.None);
+
+            GameStateManager.Instance.ChangeState(GameState.Gameplay);
+            UIPanelManager.CloseMenu();
+        }
+
+        #endregion Input Actions
 
         private bool TryHandleInteractive(Transform interaction)
         {
@@ -150,6 +175,28 @@ namespace DonutDiner.PlayerModule
             return true;
         }
 
+        private void TryHandleUseItem(ItemObject item)
+        {
+            if (item == null)
+            { return; }
+
+            GameObject _prefab = null;
+            ItemPooler.Instance.ItemsToExamine.TryGetValue(item.Id, out _prefab);
+
+            if (!_prefab) return;
+
+            if (_isUIEnabled)
+            {
+                _prefab.transform.position = Player.Hand.position;
+                _prefab.SetActive(true);
+
+                GameStateManager.Instance.ChangeState(GameState.Gameplay);
+
+                _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(_prefab.transform));
+                return;
+            }
+        }
+
         private bool TryHandleItem(Transform interaction)
         {
             if (!_interaction.TryGetItem(out IItem item)) return false;
@@ -157,11 +204,16 @@ namespace DonutDiner.PlayerModule
             switch (item)
             {
                 case ItemToPickUp:
-                    // HANDLE PICKING UP
+                    interaction.GetComponent<ItemToPickUp>().AddToInventory();
+                    PlayerInventory.Instance.AddItemToInventory(interaction.GetComponent<ItemToPickUp>().Root);
                     break;
 
                 case ItemToCarry:
                     _context.CurrentState.TrySwitchState(ActionType.Carry, new TransformActionDTO(interaction));
+                    break;
+
+                case ItemToInputInto when interaction.TryGetComponent(out ItemToInputInto _):
+                    _context.CurrentState.TrySwitchState(ActionType.Dialogue, new TransformActionDTO(interaction));
                     break;
 
                 case ItemToInspect when interaction.TryGetComponent(out ItemToCarry _):
@@ -199,26 +251,38 @@ namespace DonutDiner.PlayerModule
 
         private void OnGameStateChanged(GameState gameState)
         {
+            CursorLockMode lockstate = CursorLockMode.Locked;
+            bool visible = true;
+
             switch (gameState)
             {
                 case GameState.Gameplay:
                     EnableInputActions();
                     ToggleInputReading(true, false);
+                    lockstate = CursorLockMode.Locked;
+                    visible = false;
                     break;
 
                 case GameState.Paused:
                     DisableInputActions();
                     ToggleInputReading(false, false);
+                    lockstate = CursorLockMode.None;
+                    visible = true;
                     break;
 
                 case GameState.UI:
                     EnableInputActions();
                     ToggleInputReading(false, true);
+                    lockstate = CursorLockMode.None;
+                    visible = true;
                     break;
 
                 default:
                     break;
             }
+
+            Cursor.lockState = lockstate;
+            Cursor.visible = visible;
         }
 
         private void SetGameplayInput()
@@ -270,6 +334,8 @@ namespace DonutDiner.PlayerModule
             _actions.Game.Pause.performed += OnPausePressed;
             _actions.Game.Escape.performed += OnEscapePressed;
 
+            PlayerInventory.tryUseItem += TryHandleUseItem;
+
             GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
         }
 
@@ -282,6 +348,8 @@ namespace DonutDiner.PlayerModule
             _actions.Game.Pause.performed -= OnPausePressed;
             _actions.Game.Escape.performed -= OnEscapePressed;
 
+            PlayerInventory.tryUseItem -= TryHandleUseItem;
+
             if (GameStateManager.Instance != null) GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
         }
 
@@ -292,6 +360,6 @@ namespace DonutDiner.PlayerModule
             _interaction = GetComponent<PlayerInteraction>();
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

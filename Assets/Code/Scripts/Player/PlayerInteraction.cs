@@ -11,24 +11,25 @@ namespace DonutDiner.PlayerModule
 
         public event Action<bool, bool> OnExamination = delegate { };
 
-        #endregion
+        #endregion Delegates
 
         #region Fields
 
         [SerializeField] private float _distanceToExamine = 10.0f;
         [SerializeField] private float _distanceToInteract = 3.0f;
+        [SerializeField] private float _spherecastRadius = 0.05f;
         [SerializeField] private LayerMask _layersToExamine;
 
         private Transform _examinationObject;
         private Transform _interactionObject;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
         public Transform Interaction => _interactionObject;
 
-        #endregion
+        #endregion Properties
 
         #region Public Methods
 
@@ -66,7 +67,7 @@ namespace DonutDiner.PlayerModule
             return _interactionObject.TryGetComponent(out item);
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -112,7 +113,8 @@ namespace DonutDiner.PlayerModule
 
         private bool CanExamine(out RaycastHit hit)
         {
-            return Physics.Raycast(Player.Sight.position,
+            return Physics.SphereCast(Player.Sight.position,
+                                    _spherecastRadius,
                                    Player.Sight.forward,
                                    out hit,
                                    _distanceToExamine,
@@ -125,6 +127,6 @@ namespace DonutDiner.PlayerModule
             return Vector3.Distance(Player.Transform.position, hit.point) <= _distanceToInteract;
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

@@ -12,6 +12,7 @@ namespace DonutDiner.ItemModule
 
         [Space]
         [SerializeField] private string _uniqueId;
+
         [SerializeField] private GameObject _prefab;
         [SerializeField] private Sprite _icon;
 
@@ -19,7 +20,7 @@ namespace DonutDiner.ItemModule
         [TextArea(10, 30)]
         [SerializeField] private string _description;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -29,7 +30,7 @@ namespace DonutDiner.ItemModule
         public Sprite Icon => _icon;
         public GameObject Prefab => _prefab;
 
-        #endregion
+        #endregion Properties
 
         #region Unity Methods
 
@@ -42,6 +43,6 @@ namespace DonutDiner.ItemModule
             _uniqueId = AssetDatabase.AssetPathToGUID(path);
         }
 
-        #endregion
+        #endregion Unity Methods
     }
 }
