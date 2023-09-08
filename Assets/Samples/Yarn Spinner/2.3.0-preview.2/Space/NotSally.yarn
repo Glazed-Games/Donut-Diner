@@ -1,0 +1,24 @@
+title: NotSally
+tags: 
+colorID: 0
+position: 524,111
+---
+<<if visited("NotSally") is false>>
+    Player: Hey, Sally. #line:794945
+    Sally: Uah! #line:2dc39b
+    Sally: You snuck up on me. #line:34de2f
+    Sally: Don't do that. #line:dcc2bc
+<<else>>
+    Player: Hey. #line:a8e70c
+    Sally: Hi. #line:305cde
+<<endif>>
+
+
+-> Anything exciting happen on your watch? <<if not visited("Sally_Watch")>> #line:5d7a7c
+    <<jump Sally_Watch>>
+-> Sorry about the console. <<if $sally_warning and not visited("Sally_Sorry")>> #line:0a7e39
+    <<jump Sally_Sorry>>
+-> See you later. #line:0facf7
+    <<jump Sally_Exit>>
+===
+
