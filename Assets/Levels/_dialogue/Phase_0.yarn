@@ -3,12 +3,12 @@ tags:
 colorID: 0
 ---
 <<if visited("Character_D") is false>>
-    Player: Hey, Character_D. 
-    Character_D: Uah! 
-    Sally: what.
+    Player: Hey, Character_D.  #line:08fe18b 
+    Character_D: Uah!  #line:08514e3 
+    Sally: what. #line:06f19fd 
 <<else>>
-    Player: well hello again Character_D.
-    Character_D: Hi. 
+    Player: well hello again Character_D. #line:09b6b9c 
+    Character_D: Hi.  #line:07a5ad5 
 <<endif>>
 
 
@@ -17,31 +17,28 @@ colorID: 0
 
 title: Phase_0_Character_B
 tags: 
-colorID: 0
 ---
-Player: Hey, Character_B. 
-Character_B: Uah! 
+Player: Hey, Character_B.  #line:024ec1b 
+Character_B: Uah!  #line:00eda9e 
 ===
 
 title: Phase_0_Character_A
 tags: 
-colorID: 0
 ---
-Player: Hey, Character_A. 
-Character_A: Uah! 
+Player: Hey, Character_A.  #line:0267c6e 
+Character_A: Uah!  #line:07aa24b 
 ===
 
 title: Character_C
 tags: 
-colorID: 0
 ---
-Player: Yo, Character_C. 
-Character_C: Whoa! 
+Player: Yo, Character_C.  #line:0425f07 
+Character_C: Whoa!  #line:00356d7 
 ===
 title: Character_B_2
 tags: 
-colorID: 0
+colorID: 1
 ---
-Player: 2. 
-Character_B: 2! 
+Player: 2.  #line:0324152 
+Character_B: 2!  #line:0753ef7 
 ===

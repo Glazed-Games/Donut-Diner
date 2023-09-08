@@ -3,13 +3,13 @@ tags:
 colorID: 0
 ---
 <<if visited("BasicDialogue") is false>>
-    Player: Hey, Sally. 
-    Sally: Uah! 
-    Sally: You snuck up on me.
-    Sally: Don't do that. 
+    Player: Hey, Sally.  #line:0046b86 
+    Sally: Uah!  #line:0b982cc 
+    Sally: You snuck up on me. #line:069bd9b 
+    Sally: Don't do that.  #line:0cf221d 
 <<else>>
-    Player: Hey.
-    Sally: Hi. 
+    Player: Hey. #line:0bd1dff 
+    Sally: Hi.  #line:01529ab 
 <<endif>>
 
 
@@ -20,13 +20,13 @@ tags:
 colorID: 0
 ---
 <<if visited("BasicDialogue") is false>>
-    Player: Hey, Sally. 
-    Sally: Uah! 
-    Sally: You snuck up on me.
-    Sally: Don't do that. 
+    Player: Hey, Sally.  #line:07bb410 
+    Sally: Uah!  #line:0c73c9b 
+    Sally: You snuck up on me. #line:08004d3 
+    Sally: Don't do that.  #line:0e43713 
 <<else>>
-    Player: Hey.
-    Sally: Hi. 
+    Player: Hey. #line:09780b2 
+    Sally: Hi.  #line:0153cae 
 <<endif>>
 
 
@@ -36,21 +36,21 @@ title: Phase_B_Character_B
 tags: 
 colorID: 0
 ---
-Player: Hey, Character_B. 
-Character_B: Uah! 
+Player: Hey, Character_B.  #line:07e494a 
+Character_B: Uah!  #line:081704f 
 ===
 
 title: Character_B_0
 tags: 
 colorID: 0
 ---
-Player: 0. 
-Character_B: 0! 
+Player: 0.  #line:03c9a40 
+Character_B: 0!  #line:0b24f55 
 ===
 title: Character_B_1
 tags: 
 colorID: 0
 ---
-Player: 1. 
-Character_B: 1! 
+Player: 1.  #line:0cdbb3a 
+Character_B: 1!  #line:0780ceb 
 ===

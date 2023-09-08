@@ -4744,7 +4744,7 @@ RectTransform:
   - {fileID: 1897637809}
   - {fileID: 1647456847}
   m_Father: {fileID: 1019538493}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -15293,7 +15293,7 @@ RectTransform:
   - {fileID: 2014216067}
   - {fileID: 1142470784}
   m_Father: {fileID: 1019538493}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -15369,7 +15369,7 @@ MonoBehaviour:
     type: 3}
   lastLineText: {fileID: 1142470785}
   fadeTime: 0.1
-  showUnavailableOptions: 0
+  showUnavailableOptions: 1
 --- !u!1 &841907339
 GameObject:
   m_ObjectHideFlags: 0
@@ -18648,8 +18648,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 273551181}
   - {fileID: 839211444}
+  - {fileID: 273551181}
   m_Father: {fileID: 115472493}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

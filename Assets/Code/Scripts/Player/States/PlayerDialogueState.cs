@@ -45,6 +45,8 @@ namespace DonutDiner.PlayerModule.States
         {
             ReadTextInput();
 
+            DialogueRunner().onDialogueComplete.RemoveListener(DialogueEnd);
+
             DeactivateUI();
 
             if (_data.ItemToInspect) _data.ItemToInspect.FinishInspection();
@@ -84,12 +86,19 @@ namespace DonutDiner.PlayerModule.States
                 case ActionType.None:
                     if (DialogueRunner().IsDialogueRunning)
                     { return false; }
-                    PopState();
-                    return true;
+                    //PopState();
+                    return false;// TryQuitDialogue();
 
                 case ActionType.Dialogue:
-                    HandleDialogue();
-                    return TryQuitDialogue();
+                    
+                    if (DialogueRunner().IsDialogueRunning)
+                    {
+                        HandleDialogue();
+                        return false;
+
+                    }
+
+                    return false;// TryQuitDialogue();
 
                 default:
                     return false;
@@ -114,8 +123,8 @@ namespace DonutDiner.PlayerModule.States
             if (_data.character )
             {
                 _data.character.StartInteraction();
-
-                DialogueRunner().StartDialogue(_data.character.CharacterName() + debug);
+                DialogueRunner().onDialogueComplete.AddListener(DialogueEnd);
+                DialogueRunner().StartDialogue("Phase_0",_data.character.CharacterName() , debug.ToString());
                 debug++;
                 // reenabling the input on the dialogue
                 DialogueAdvanceInput().enabled = true;
@@ -128,6 +137,7 @@ namespace DonutDiner.PlayerModule.States
 
         public void HandleDialogue()
         {
+   
             DialogueRunner().Dialogue.Continue();
         }
 
@@ -141,6 +151,12 @@ namespace DonutDiner.PlayerModule.States
             PopState();
 
             return true;
+        }
+
+
+        public void DialogueEnd()
+        {
+            TryQuitDialogue();
         }
 
         public DialogueRunner DialogueRunner()

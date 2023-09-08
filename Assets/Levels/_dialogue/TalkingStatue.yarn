@@ -1,0 +1,57 @@
+﻿
+title: Statue_0
+tags: 
+---
+Player: jump Statue_0 #line:0bcb62c 
+Statue: jump Statue_0 #line:05319f9 
+===
+
+title: Statue_1
+tags: 
+---
+Player: jump Statue_1 #line:0611a4d 
+Statue: jump Statue_1 #line:0d58d92 
+===
+title: Phase_0_Statue
+tags: 
+---
+Player: Just statue #line:0f5a78a 
+Statue: Just statue #line:0c3a225 
+===
+title: Phase_0_Statue_0
+tags: 
+---
+Player: Hey, Phase_0_Statue_0.  #tone:sarcastic #duplicate #line:0befa77
+Statue: yes Statue_1!   #line:06823a1
+-> Hi! #line:0c9e6c5 
+	<<jump Statue_0>>
+-> What's up? #line:0fec76b 
+	<<jump Statue_1>>
+-> 3  #line:0f9ed3f 
+	Statue: 3 option  #line:0bc3b87 
+-> 4 #line:0a7bb7e 
+	Statue: 4 option #line:0e1256f 
+-> 5 #line:050a45a 
+	Statue: 5 option #line:091a036 
+===
+
+title: Phase_0_Statue_1
+tags: 
+---
+Player: Hey, Phase_0_Statue_1.  #line:08b48db 
+Statue: yes Statue_1!  #line:043918a 
+===
+
+title: Phase_0_Statue_2
+tags: 
+---
+Player: Hey, Phase_0_Statue_2.  #line:01ce967 
+Statue: yes Statue_1!  #line:08f156a 
+===
+
+title: Phase_0_Statue_3
+tags: 
+---
+Player: Hey, Phase_0_Statue3.  #line:0cbdc97 
+Statue: yes Statue_1!  #line:073fc1e 
+===

@@ -338,6 +338,7 @@ namespace DonutDiner.PlayerModule
             PlayerInventory.tryUseItem += TryHandleUseItem;
 
             GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
+
         }
 
         private void UnsubscribeEvents()
