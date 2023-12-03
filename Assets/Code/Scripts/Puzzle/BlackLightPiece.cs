@@ -4,14 +4,23 @@ namespace DonutDiner.FrameworkModule
 {
     public class BlackLightPiece : MonoBehaviour
     {
-        // Start is called before the first frame update
-        private void Start()
+        public Material reveal;
+        public Light light;
+
+        void Start()
         {
+
         }
 
-        // Update is called once per frame
-        private void Update()
+        void Update()
         {
-        }
+            if (reveal && light)
+            {
+                reveal.SetVector("_LightPosition", light.transform.position);
+                reveal.SetVector("_LightDirection", -light.transform.forward);
+                reveal.SetFloat("_LightAngle", light.spotAngle);
+            }
+        }// Start is called before the first frame update
+        
     }
 }
