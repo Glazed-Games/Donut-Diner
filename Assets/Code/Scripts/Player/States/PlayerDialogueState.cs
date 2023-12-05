@@ -93,7 +93,8 @@ namespace DonutDiner.PlayerModule.States
                     
                     if (DialogueRunner().IsDialogueRunning)
                     {
-                        HandleDialogue();
+                        // the lineview's dialogue advance input handles this
+                        //  HandleDialogue();
                         return false;
 
                     }
@@ -139,6 +140,8 @@ namespace DonutDiner.PlayerModule.States
         {
    
             DialogueRunner().Dialogue.Continue();
+      
+   
         }
 
         //private void HandleDialogue() => DialogueManager.Instance.HandleDialogue();

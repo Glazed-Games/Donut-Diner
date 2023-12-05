@@ -1,21 +1,28 @@
 using DonutDiner.InteractionModule.Environment;
+using DonutDiner.InteractionModule.Interactive;
 using DonutDiner.ItemModule.Items;
 using DonutDiner.PlayerModule.States.Data;
 using DonutDiner.PlayerModule.States.DTOs;
+using UnityEngine;
 
 namespace DonutDiner.PlayerModule.States
 {
     public class PlayerCarryState : BaseState
     {
+
+        public Transform debugTransform;
         #region Overriden Methods
 
         public override void EnterState(PlayerActionDTO dto)
         {
+
+
             //if carrying and object already, drop it and then pick up the new item
             if (StateData != null && StateData.Transform != null)
             { DropItem(); }
 
             StateData = new PlayerStateData(dto);
+
             CarryItem();
         }
 
@@ -62,6 +69,14 @@ namespace DonutDiner.PlayerModule.States
 
                     return true;
 
+                //case ActionType.Dialogue when StateData.Transform.TryGetComponent(out NPC _):
+                //    PushState(StateMachine.Dialogue(), new TransformActionDTO(StateData.Transform));
+                //    return true;
+                //    //if (StateData != null && StateData.Transform != null)
+                //    //{ DropItem(); }
+                //    //PopState();
+                //    return true;
+
                 default:
                     return false;
             }
@@ -75,6 +90,7 @@ namespace DonutDiner.PlayerModule.States
         {
             if (StateData.Transform.TryGetComponent(out ItemToCarry item))
             {
+                debugTransform = StateData.Transform;
                 item.Carry();
             }
         }
