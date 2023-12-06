@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf35bd0d31ab6fb45a7b3b2c2fa01663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugShowState: {fileID: 0}
 --- !u!114 &4935119925338232601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _distanceToExamine: 10
   _distanceToInteract: 4
+  _spherecastRadius: 0.05
   _layersToExamine:
     serializedVersion: 2
     m_Bits: 2291857
@@ -522,9 +524,9 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20000
-  m_Range: 10
+  m_Color: {r: 0.15805279, g: 0.9528302, b: 0.032959424, a: 1}
+  m_Intensity: 100
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

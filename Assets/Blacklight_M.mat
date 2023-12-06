@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Blacklight_M
-  m_Shader: {fileID: 4800000, guid: ced87d5d05e080241b7a2c5809874a30, type: 3}
+  m_Shader: {fileID: 4800000, guid: 1f0acf0ce14ed26478743617c8556945, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -38,6 +38,10 @@ Material:
         m_Scale: {x: 0.5, y: 0.5}
         m_Offset: {x: 5, y: 5}
     - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Blacklight:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -58,6 +62,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Letter:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -96,7 +104,7 @@ Material:
     m_Ints: []
     m_Floats:
     - MyGlossiness: 0.473
-    - MyLightAngle: 30
+    - MyLightAngle: 145
     - MyMetallic: 0
     - MyStrengthScalor: 50
     - _AlphaClip: 0
@@ -117,6 +125,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -129,12 +138,12 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - MyColor: {r: 1, g: 0, b: 0.9937711, a: 1}
-    - MyLightDirection: {r: 0.09226286, g: -0.263647, b: 0.9601974, a: 0}
-    - MyLightPosition: {r: -42.035957, g: 2.0460117, b: 107.84509, a: 0}
+    - MyLightDirection: {r: -0, g: 1.0000001, b: 0.00000011920929, a: 0}
+    - MyLightPosition: {r: -42.276, g: 6.001, b: 107.643, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightDirection: {r: -0.08901435, g: -0.15716642, b: 0.9835527, a: 0}
-    - _LightPosition: {r: -42.11307, g: 1.9651214, b: 108.185104, a: 0}
+    - _LightDirection: {r: -0, g: -0, b: -1, a: 0}
+    - _LightPosition: {r: -54.109, g: 0.22399998, b: 107.57, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
