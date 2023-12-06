@@ -53,7 +53,7 @@ namespace DonutDiner.FrameworkModule
                 {
                     for (int j = i; j < SerializedObjects.Count; ++j)
                     {
-                        if (i != j
+                        if (i != j && SerializedObjects[i] != null
                             && SerializedObjects[i].GetGuid() == SerializedObjects[j].GetGuid())
                         {
                             Debug.LogWarning(SerializedObjects[i].gameObject.name + " and " + SerializedObjects[j].gameObject.name + " share a GUID! Please alert Programming (Ben)");

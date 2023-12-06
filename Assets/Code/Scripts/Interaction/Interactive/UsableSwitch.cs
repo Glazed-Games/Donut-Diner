@@ -146,7 +146,7 @@ namespace DonutDiner.InteractionModule.Interactive.Devices
             string layer = _isOpen ? "Open" : "Closed";
 
             _animator.SetBool("isOpen", _isOpen);
-            _animator.SetLayerWeight(_animator.GetLayerIndex(layer), 1.0f);
+           // _animator.SetLayerWeight(_animator.GetLayerIndex(layer), 1.0f);
         }
 
         private void PrepareCoroutine()
