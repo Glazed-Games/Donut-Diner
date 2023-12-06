@@ -1,24 +1,32 @@
-using DonutDiner.FrameworkModule;
-using DonutDiner.PlayerModule;
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-
 namespace DonutDiner.ItemModule.Items
 {
-
-    public class Donut : MonoBehaviour
+    public class Donut : MonoBehaviour, IItem
     {
+        #region Fields
 
-        //called from the 'itemtocarry' event
-        //which should be set on up on the prefab  
-        public void OnDrop()
+        [SerializeField] private ItemObject _item;
+        [SerializeField] private int _quantity = 1;
+
+        #endregion
+
+        #region Properties
+
+        public ItemObject Root => _item;
+
+        #endregion
+
+        #region Public Methods
+
+        public void AddToInventory()
         {
-            
+            // ADD TO INVENTORY
+
+            gameObject.SetActive(false);
         }
 
-
-
+        #endregion
     }
 }

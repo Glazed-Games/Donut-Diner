@@ -47,13 +47,7 @@ namespace DonutDiner.InteractionModule.Interactive
         {
             if (!_canInteract) return;
 
-
             //DialogueManager.Instance.StartDialogue(new DialogueDTO(_dialogue.text, _character.Name));
-        }
-
-        public string CharacterName()
-        {
-            return _character.Name;    
         }
 
         #endregion Public Methods

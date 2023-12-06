@@ -11,7 +11,6 @@ namespace DonutDiner.InteractionModule.Environment
 
         [SerializeField] private GameObject _item;
         [SerializeField] private bool _isItemLocked;
-        [SerializeField] private bool _matchRotation;
         [SerializeField] private List<ItemObject> _itemsAllowed;
 
         private ItemToCarry _itemToCarry;
@@ -23,7 +22,6 @@ namespace DonutDiner.InteractionModule.Environment
         public Transform Item => _item ? _item.transform : null;
 
         public bool IsItemLocked => _isItemLocked;
-        public bool MatchRotation => _matchRotation;
 
         #endregion Properties
 
@@ -57,12 +55,9 @@ namespace DonutDiner.InteractionModule.Environment
 
         #region Protected Methods
 
-        protected virtual void Place(ItemToCarry item)
+        protected void Place(ItemToCarry item)
         {
             item.Place(transform.position, _isItemLocked);
-
-            if (MatchRotation)
-            { item.transform.rotation = transform.rotation; }
 
             _item = item.gameObject;
             _itemToCarry = item;
@@ -76,7 +71,7 @@ namespace DonutDiner.InteractionModule.Environment
             _item = null;
         }
 
-        protected virtual bool CanPlaceItem(Transform transform, out ItemToCarry item)
+        protected bool CanPlaceItem(Transform transform, out ItemToCarry item)
         {
             return transform.TryGetComponent(out item) && !_item && IsAllowed(item);
         }

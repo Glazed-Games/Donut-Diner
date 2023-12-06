@@ -18,13 +18,13 @@ namespace DonutDiner.ItemModule.Items
 
         #region Fields
 
-        [SerializeField] protected ItemObject _item;
-        [SerializeField] protected float _isKinematicTimeout = 10.0f;
+        [SerializeField] private ItemObject _item;
+        [SerializeField] private float _isKinematicTimeout = 10.0f;
 
         public UnityEvent OnPickUp;
         public UnityEvent OnDrop;
 
-        protected Coroutine _coroutine;
+        private Coroutine _coroutine;
 
         #endregion Fields
 
@@ -80,26 +80,18 @@ namespace DonutDiner.ItemModule.Items
             if (OnDrop != null) { OnDrop.Invoke(); }
         }
 
-        public virtual void Take()
-        {
-            transform.GetComponent<Rigidbody>().isKinematic = true;
-            transform.GetComponent<Collider>().enabled = false;
-            transform.parent = null;
-
-        }
-
         #endregion Public Methods
 
         #region Private Methods
 
-        protected IEnumerator SetIsKinematic()
+        private IEnumerator SetIsKinematic()
         {
             var rigidbody = GetComponent<Rigidbody>();
             rigidbody.velocity = Vector3.down;
 
             float deadline = Time.time + _isKinematicTimeout;
 
-            while (rigidbody.velocity != Vector3.zero && Time.time < deadline && transform.position.y > 0)
+            while (rigidbody.velocity != Vector3.zero && Time.time < deadline)
             {
                 yield return new WaitForFixedUpdate();
             }
