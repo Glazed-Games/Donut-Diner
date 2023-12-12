@@ -102,6 +102,14 @@ namespace DonutDiner.PlayerModule.States
             if (_data.character && StateData.Transform.TryGetComponent(out _data.character))
             {
                 _data.character.StartInteraction();
+<<<<<<< Updated upstream
+=======
+                DialogueRunner().onDialogueComplete.AddListener(DialogueEnd);
+                //DialogueRunner().StartDialogue("Phase_0",_data.character.CharacterName() , debug.ToString());
+                debug++;
+                // reenabling the input on the dialogue
+                DialogueAdvanceInput().enabled = true;
+>>>>>>> Stashed changes
             }
             if (StateData.Transform.TryGetComponent(out _data.ItemToInputInto))
             {

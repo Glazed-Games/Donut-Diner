@@ -170,6 +170,16 @@
       },
       "url": "https://packages.unity.com"
     },
+<<<<<<< Updated upstream
+=======
+    "dev.yarnspinner.unity": {
+      "version": "2.4.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+>>>>>>> Stashed changes
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
