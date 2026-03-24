@@ -4,13 +4,7 @@ First-person adventure prototype developed in Unity as a team project.
 
 ## Overview
 
-Donut Diner is a prototype focused on building the core systems for a first-person interactive experience. Rather than a content-complete game, the project explores how movement, interaction, item handling, inspection, and environmental systems can work together as a foundation for future development.
-
-## My Role
-
-- Lead developer on the project
-- Responsible for technical structure and core gameplay systems
-- Worked on system design and integration across different parts of the project
+Donut Diner is a prototype focused on building the core systems for a first-person interactive experience.
 
 ## Systems Implemented
 
@@ -33,9 +27,3 @@ Donut Diner is a prototype focused on building the core systems for a first-pers
 ## Purpose
 
 The project was developed as a collaborative prototype for a first-person adventure game, with a focus on system design, interaction, and extensibility.
-
-## Author
-
-Marcelo Camargo  
-[LinkedIn](https://www.linkedin.com/in/marcelocsc/)  
-[GitHub](https://github.com/MarceloCSC)
